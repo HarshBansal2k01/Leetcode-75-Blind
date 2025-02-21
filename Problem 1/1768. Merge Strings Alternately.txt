@@ -1,0 +1,69 @@
+Link to Youtube Video :- https://www.youtube.com/watch?v=-yicL1G9c5Q
+Link to Leetcode problem :- https://leetcode.com/problems/merge-strings-alternately/description/?envType=study-plan-v2&envId=leetcode-75
+
+
+Time Complexity :- O(N)
+Space Complexity :- O(N)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def mergeAlternately(self, word1: str, word2: str) -> str:
+        res = ""
+        len1 = len(word1)
+        len2 = len(word2)
+
+        for i in range(max(len1,len2)):
+          if i < len1:
+            res += word1[i]
+          if i < len2:
+            res += word2[i]
+            
+        return res
+
+
+
+##############-Cpp-####################
+
+
+class Solution {
+public:
+    string mergeAlternately(string word1, string word2) {
+        string res = "";
+        int len1 = word1.length();
+        int len2 = word2.length();
+
+        for (int i = 0; i < max(len1, len2); i++) {
+            if (i < len1) {
+                res += word1[i];
+            }
+            if (i < len2) {
+                res += word2[i];
+            }
+        }
+        return res;
+    }
+};
+
+##############-Java-####################
+
+
+class Solution {
+    public String mergeAlternately(String word1, String word2) {
+        StringBuilder res = new StringBuilder();
+        int len1 = word1.length();
+        int len2 = word2.length();
+
+        for (int i = 0; i < Math.max(len1, len2); i++) {
+            if (i < len1) {
+                res.append(word1.charAt(i));
+            }
+            if (i < len2) {
+                res.append(word2.charAt(i));
+            }
+        }
+        return res.toString();
+    }
+}
+
