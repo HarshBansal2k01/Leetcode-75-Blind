@@ -1,4 +1,4 @@
-Link to Youtube Video :- adding soon
+Link to Youtube Video :- https://www.youtube.com/watch?v=Dq80E4voi0M
 Link to Leetcode problem :- https://leetcode.com/problems/greatest-common-divisor-of-strings/description/?envType=study-plan-v2&envId=leetcode-75
 
 
