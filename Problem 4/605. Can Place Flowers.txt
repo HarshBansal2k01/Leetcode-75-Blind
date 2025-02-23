@@ -1,0 +1,71 @@
+Link to Youtube Video :- adding soon
+Link to Leetcode problem :- https://leetcode.com/problems/can-place-flowers/description/?envType=study-plan-v2&envId=leetcode-75
+
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+##############-PYTHON-####################
+
+class Solution:
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        count = 0
+        for i in range(len(flowerbed)):
+            if flowerbed[i] == 0:
+                empty_left_plot = (i == 0) or (flowerbed[i - 1] == 0)
+                empty_right_plot = (i == len(flowerbed) - 1) or (flowerbed[i + 1] == 0)
+
+                if empty_left_plot and empty_right_plot:
+                    flowerbed[i] = 1
+                    count += 1
+
+        return count >= n
+
+
+##############-Cpp-####################
+
+class Solution
+{
+    public:
+        bool canPlaceFlowers(vector<int> &flowerbed, int n)
+        {
+            int count = 0;
+            for (int i = 0; i < flowerbed.size(); i++)
+            {
+                if (flowerbed[i] == 0)
+                {
+                    bool emptyLeftPlot = (i == 0) || (flowerbed[i - 1] == 0);
+                    bool emptyRightPlot = (i == flowerbed.size() - 1) || (flowerbed[i + 1] == 0);
+
+                    if (emptyLeftPlot && emptyRightPlot)
+                    {
+                        flowerbed[i] = 1;
+                        count++;
+                    }
+                }
+            }
+            return count >= n;
+        }
+};
+
+
+##############-Java-####################
+
+
+class Solution {
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        int count = 0;
+        for (int i = 0; i < flowerbed.length; i++) {
+            if (flowerbed[i] == 0) {
+                boolean emptyLeftPlot = (i == 0) || (flowerbed[i - 1] == 0);
+                boolean emptyRightPlot = (i == flowerbed.length - 1) || (flowerbed[i + 1] == 0);
+
+                if (emptyLeftPlot && emptyRightPlot) {
+                    flowerbed[i] = 1;
+                    count++;
+                }
+            }
+        }
+        return count >= n;
+    }
+}
