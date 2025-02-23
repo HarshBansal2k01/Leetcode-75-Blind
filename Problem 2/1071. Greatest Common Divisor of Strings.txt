@@ -2,7 +2,7 @@ Link to Youtube Video :- adding soon
 Link to Leetcode problem :- https://leetcode.com/problems/greatest-common-divisor-of-strings/description/?envType=study-plan-v2&envId=leetcode-75
 
 
-Time Complexity :- O(N)
+Time Complexity :- O(logN)
 Space Complexity :- O(1)
 
 
