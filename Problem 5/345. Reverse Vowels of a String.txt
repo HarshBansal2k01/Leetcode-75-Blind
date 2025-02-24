@@ -1,0 +1,96 @@
+Link to Youtube Video :- adding soon
+Link to Leetcode problem :- https://leetcode.com/problems/reverse-vowels-of-a-string/description/?envType=study-plan-v2&envId=leetcode-75
+
+
+
+##############-For Python and Java-####################
+
+Time Complexity :- O(N)
+Space Complexity :- O(N) (since string in java and py  are immutable we have to convert them to list/array)
+
+##############-For Cpp-####################
+Time Complexity :- O(N)
+Space Complexity :- O(1) -> set takes const space of 10 so O(1)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def reverseVowels(self, s: str) -> str:
+        vowels = 'aeiouAEIOU'
+        s = list(s)
+
+        l = 0
+        r = len(s) - 1
+
+        while l <= r:
+            if s[l] in vowels and s[r] in vowels:
+                s[l], s[r] = s[r], s[l]
+                l += 1
+                r -= 1
+                continue
+            elif s[r] not in vowels:
+                r -= 1
+                continue
+            else:
+                l += 1
+    
+        return ''.join(s)
+
+
+##############-Cpp-####################
+
+class Solution {
+public:
+    string reverseVowels(string s) {
+        unordered_set<char> vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+        int l = 0, r = s.size() - 1;
+
+        while (l < r) {
+            if (vowels.count(s[l]) && vowels.count(s[r])) {
+                swap(s[l], s[r]);
+                l++;
+                r--;
+            } 
+            else if (!vowels.count(s[l])) {
+                l++;
+            } 
+            else {
+                r--;
+            }
+        }
+        return s;
+    }
+};
+
+##############-Java-####################
+
+
+class Solution {
+    public String reverseVowels(String s) {
+        Set<Character> vowels = new HashSet<>();
+        for (char c : "aeiouAEIOU".toCharArray()) {
+            vowels.add(c);
+        }
+
+        char[] chars = s.toCharArray();
+        int l = 0, r = s.length() - 1;
+
+        while (l < r) {
+            if (vowels.contains(chars[l]) && vowels.contains(chars[r])) {
+                char temp = chars[l];
+                chars[l] = chars[r];
+                chars[r] = temp;
+                l++;
+                r--;
+            } 
+            else if (!vowels.contains(chars[l])) {
+                l++;
+            } 
+            else {
+                r--;
+            }
+        }
+        return new String(chars);
+    }
+}
