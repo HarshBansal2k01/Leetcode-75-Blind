@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 Link to Youtube Video :- https://youtu.be/3QyF1fwwSaM
-=======
-Link to Youtube Video :- https://www.youtube.com/watch?v=3QyF1fwwSaM
->>>>>>> a8cd17893104c5c4cd1fa8ff9315705c9bbd12a3
 Link to Leetcode problem :- https://leetcode.com/problems/can-place-flowers/description/?envType=study-plan-v2&envId=leetcode-75
 
 
