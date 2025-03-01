@@ -1,4 +1,4 @@
-Link to Youtube Video :- adding soon
+Link to Youtube Video :- https://www.youtube.com/watch?v=m0kSHnZ5VbE
 Link to Leetcode problem :- https://leetcode.com/problems/reverse-vowels-of-a-string/description/?envType=study-plan-v2&envId=leetcode-75
 
 
