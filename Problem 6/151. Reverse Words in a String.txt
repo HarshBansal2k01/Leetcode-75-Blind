@@ -1,0 +1,98 @@
+Link to Youtube Video :- https://www.youtube.com/watch?v=m0kSHnZ5VbE
+Link to Leetcode problem :- https://leetcode.com/problems/reverse-words-in-a-string/?envType=study-plan-v2&envId=leetcode-75
+
+
+Time Complexity :- O(N)
+Space Complexity :- O(N)
+
+##############-PYTHON-####################
+
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        n = len(s)
+
+        stack = deque()
+        i=0
+
+        while i<n:
+            if s[i] ==' ':
+                i +=1
+                continue
+            else:
+                word = ""
+                while i<n and s[i] != ' ':
+                    word += s[i]
+                    i +=1
+                stack.appendleft(word)
+        
+        return " ".join(stack)
+
+
+##############-Cpp-####################
+
+class Solution {
+public:
+    string reverseWords(string s) {
+        stack<string> st;
+        int n = s.length();
+        int i = 0;
+
+        while (i < n) {
+            if (s[i] == ' ') {
+                i++;
+                continue;
+            } else {
+                string word = "";
+                while (i < n && s[i] != ' ') {
+                    word += s[i];
+                    i++;
+                }
+                st.push(word);
+            }
+        }
+
+        string result = "";
+        while (!st.empty()) {
+            result += st.top();
+            st.pop();
+            if (!st.empty())
+                result += " ";
+        }
+
+        return result;
+    }
+};
+
+
+##############-Java-####################
+
+
+class Solution {
+   public String reverseWords(String s) {
+        Stack<String> stack = new Stack<>();
+        int n = s.length();
+        int i = 0;
+
+        while (i < n) {
+            if (s.charAt(i) == ' ') {
+                i++;
+                continue;
+            } else {
+                StringBuilder word = new StringBuilder();
+                while (i < n && s.charAt(i) != ' ') {
+                    word.append(s.charAt(i));
+                    i++;
+                }
+                stack.push(word.toString());
+            }
+        }
+
+        StringBuilder result = new StringBuilder();
+        while (!stack.isEmpty()) {
+            result.append(stack.pop());
+            if (!stack.isEmpty()) result.append(" ");
+        }
+
+        return result.toString();
+    }
+}
