@@ -1,4 +1,4 @@
-Link to Youtube Video :- adding soon
+Link to Youtube Video :- https://www.youtube.com/watch?v=ZsJTNr7iLjU
 Link to Leetcode problem :- https://leetcode.com/problems/product-of-array-except-self/description/?envType=study-plan-v2&envId=leetcode-75
 
 
