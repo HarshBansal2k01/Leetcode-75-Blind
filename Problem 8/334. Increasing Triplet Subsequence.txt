@@ -1,0 +1,68 @@
+Link to Youtube Video :- adding soon
+Link to Leetcode problem :- https://leetcode.com/problems/increasing-triplet-subsequence/description/?envType=study-plan-v2&envId=leetcode-75
+
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+##############-PYTHON-####################
+
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        
+        first_small = float('inf')
+        second_small = float('inf')
+
+        n = len(nums)
+
+        for i in range(n):
+            
+            if nums[i] <= first_small:
+                first_small = nums[i]
+            elif nums[i] <= second_small:
+                second_small = nums[i]
+            else :
+                return True
+        return False
+        
+
+##############-Cpp-####################
+
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) 
+    {
+        int first_small = INT_MAX;
+        int second_small = INT_MAX;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(nums[i]<=first_small)
+                first_small=nums[i];
+            else if( nums[i]<= second_small )
+                second_small= nums[i];
+            else
+                return true;
+        }
+        return false;
+    }
+};
+
+##############-Java-####################
+
+class Solution {
+    public boolean increasingTriplet(int[] nums) {
+        int firstSmall = Integer.MAX_VALUE;
+        int secondSmall = Integer.MAX_VALUE;
+        
+        for (int num : nums) {
+            if (num <= firstSmall) {
+                firstSmall = num;
+            } else if (num <= secondSmall) {
+                secondSmall = num;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+}
