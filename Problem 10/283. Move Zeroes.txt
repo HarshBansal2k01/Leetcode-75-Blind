@@ -1,0 +1,66 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/move-zeroes/?envType=study-plan-v2&envId=leetcode-75
+
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+##############-PYTHON-####################
+
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        i=j=0
+
+        n=len(nums)
+
+        while j<n:
+            if nums[j] != 0:
+                nums[j],nums[i] = nums[i],nums[j]
+                j+=1
+                i+=1
+            else:
+                j+=1
+        
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int i = 0, j = 0;
+        int n = nums.size();
+        
+        while (j < n) {
+            if (nums[j] != 0) {
+                swap(nums[j], nums[i]);
+                j++;
+                i++;
+            } else {
+                j++;
+            }
+        }
+    }
+};
+
+
+##############-Java-####################
+
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int i = 0, j = 0;
+        int n = nums.length;
+        
+        while (j < n) {
+            if (nums[j] != 0) {
+                int temp = nums[j];
+                nums[j] = nums[i];
+                nums[i] = temp;
+                j++;
+                i++;
+            } else {
+                j++;
+            }
+        }
+    }
+}
+
