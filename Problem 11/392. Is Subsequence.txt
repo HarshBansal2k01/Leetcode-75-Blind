@@ -1,0 +1,80 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/is-subsequence/?envType=study-plan-v2&envId=leetcode-75
+
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+##############-PYTHON-####################
+
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        i=j=0
+        n=len(t)
+        sz=len(s)
+
+        if sz == 0:
+            return True
+        if n==0:
+            return False
+
+        while i<n:
+            if(i<n and j<sz and t[i] == s[j]):
+                i+=1
+                j+=1
+            else:
+                i+=1
+
+        if j==sz:
+            return True
+
+        return False                
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        int i = 0, j = 0;
+        int n = t.size(), sz = s.size();
+
+        if (sz == 0) return true;
+        if (n == 0) return false;
+
+        while (i < n) {
+            if (i < n && j < sz && t[i] == s[j]) {
+                i++;
+                j++;
+            } else {
+                i++;
+            }
+        }
+
+        return j == sz;
+    }
+};
+
+
+
+##############-Java-####################
+
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int i = 0, j = 0;
+        int n = t.length(), sz = s.length();
+
+        if (sz == 0) return true;
+        if (n == 0) return false;
+
+        while (i < n) {
+            if (i < n && j < sz && t.charAt(i) == s.charAt(j)) {
+                i++;
+                j++;
+            } else {
+                i++;
+            }
+        }
+
+        return j == sz;
+    }
+}
