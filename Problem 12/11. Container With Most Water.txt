@@ -1,0 +1,89 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/container-with-most-water/?envType=study-plan-v2&envId=leetcode-75
+
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+##############-PYTHON-####################
+
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        n = len(height)
+        i=0 #left
+        j=n-1 #right
+
+        maxi = float('-inf') #to store the maximum res
+
+        while i<j:
+            if height[i] > height[j]:
+                maxi = max(maxi,height[j]*(j-i))
+                j-=1
+            elif height[i] < height[j]:
+                maxi = max(maxi,height[i]*(j-i))
+                i+=1
+            else:
+                maxi = max(maxi, height[i]*(j-i))
+                i+=1
+                j-=1
+            
+        return maxi      
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int n = height.size();
+        int i = 0; // left
+        int j = n - 1; // right
+        int maxi = INT_MIN; // to store the maximum result
+        
+        while (i < j) {
+            if (height[i] > height[j]) {
+                maxi = max(maxi, height[j] * (j - i));
+                j--;
+            } else if (height[i] < height[j]) {
+                maxi = max(maxi, height[i] * (j - i));
+                i++;
+            } else {
+                maxi = max(maxi, height[i] * (j - i));
+                i++;
+                j--;
+            }
+        }
+        
+        return maxi;
+    }
+};
+
+
+
+
+##############-Java-####################
+
+class Solution {
+    public int maxArea(int[] height) {
+        int n = height.length;
+        int i = 0; // left
+        int j = n - 1; // right
+        int maxi = Integer.MIN_VALUE; // to store the maximum result
+        
+        while (i < j) {
+            if (height[i] > height[j]) {
+                maxi = Math.max(maxi, height[j] * (j - i));
+                j--;
+            } else if (height[i] < height[j]) {
+                maxi = Math.max(maxi, height[i] * (j - i));
+                i++;
+            } else {
+                maxi = Math.max(maxi, height[i] * (j - i));
+                i++;
+                j--;
+            }
+        }
+        
+        return maxi;
+    }
+}
+
