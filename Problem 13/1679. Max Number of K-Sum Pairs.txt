@@ -1,0 +1,82 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/max-number-of-k-sum-pairs/description/?envType=study-plan-v2&envId=leetcode-75
+
+
+Time Complexity :- O(NlogN)
+Space Complexity :- O(1)
+
+##############-PYTHON-####################
+
+class Solution:
+    def maxOperations(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        nums.sort() #sorting nums
+        i=0 #left pointer
+        j = n-1 #right pointer
+        cnt=0 # will store the  cnt of pairs
+
+        while i<j:
+            if nums[i]+nums[j] == k:
+                i+=1
+                j-=1
+                cnt+=1
+            elif nums[i]+nums[j]<k:
+                i+=1
+            else:
+                j-=1
+        
+        return cnt
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int maxOperations(vector<int>& nums, int k) {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        int i = 0;
+        int j = n - 1;
+        int cnt = 0;
+        
+        while (i < j) {
+            if (nums[i] + nums[j] == k) {
+                i++;
+                j--;
+                cnt++;
+            } else if (nums[i] + nums[j] < k) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+        
+        return cnt;
+    }
+};
+
+
+
+##############-Java-####################
+
+class Solution {
+    public int maxOperations(int[] nums, int k) {
+        Arrays.sort(nums);
+        int i = 0;
+        int j = nums.length - 1;
+        int cnt = 0;
+        
+        while (i < j) {
+            if (nums[i] + nums[j] == k) {
+                i++;
+                j--;
+                cnt++;
+            } else if (nums[i] + nums[j] < k) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+        
+        return cnt;
+    }
+}
