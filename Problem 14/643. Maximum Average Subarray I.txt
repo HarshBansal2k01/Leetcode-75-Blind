@@ -1,0 +1,76 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/maximum-average-subarray-i/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+##############-PYTHON-####################
+
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        n = len(nums)
+        sum=0
+        res=0
+
+        for i in range(k):
+            sum += nums[i]
+        
+        res = sum/k
+    
+
+        for i in range(k,n):
+            sum = (sum + nums[i]) -  nums[i-k]
+            res = max(res,sum/k)
+        
+        return res
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    double findMaxAverage(vector<int>& nums, int k) {
+        int n = nums.size();
+        double sum = 0;
+        double res = 0;
+        
+        for (int i = 0; i < k; i++) {
+            sum += nums[i];
+        }
+        
+        res = sum / k;
+        
+        for (int i = k; i < n; i++) {
+            sum = sum + nums[i] - nums[i - k];
+            res = max(res, sum / k);
+        }
+        
+        return res;
+    }
+};
+
+
+
+
+##############-Java-####################
+
+class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+        int n = nums.length;
+        double sum = 0;
+        double res = 0;
+        
+        for (int i = 0; i < k; i++) {
+            sum += nums[i];
+        }
+        
+        res = sum / k;
+        
+        for (int i = k; i < n; i++) {
+            sum = sum + nums[i] - nums[i - k];
+            res = Math.max(res, sum / k);
+        }
+        
+        return res;
+    }
+}
