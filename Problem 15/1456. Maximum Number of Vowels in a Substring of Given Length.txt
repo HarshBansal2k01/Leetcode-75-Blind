@@ -1,0 +1,101 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :-https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+##############-PYTHON-####################
+
+class Solution:
+    def maxVowels(self, s: str, k: int) -> int:
+        vowels = {'a','e','i','o','u'}
+        cnt=0
+        n=len(s)
+        if n<k:
+            return 0
+        for i in range(k):
+            if s[i] in vowels:
+                cnt+=1
+        
+        res=cnt
+
+        for i in range(k,n):
+            left_char = s[i-k]
+            current_char = s[i]
+
+            if left_char in vowels:
+                cnt-=1
+            if current_char in vowels:
+                cnt +=1
+            
+            res = max(res,cnt)
+        
+        return res
+
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int maxVowels(string s, int k) {
+        unordered_set<char> vowels = {'a', 'e', 'i', 'o', 'u'};
+        int cnt = 0, res = 0;
+        int n = s.size();
+
+        if (n < k) return 0;
+
+        for (int i = 0; i < k; ++i) {
+            if (vowels.count(s[i])) cnt++;
+        }
+
+        res = cnt;
+
+        for (int i = k; i < n; ++i) {
+            if (vowels.count(s[i - k])) cnt--;
+            if (vowels.count(s[i])) cnt++;
+            res = max(res, cnt);
+        }
+
+        return res;
+    }
+};
+
+
+
+
+##############-Java-####################
+
+import java.util.HashSet;
+import java.util.Set;
+
+class Solution {
+    public int maxVowels(String s, int k) {
+        Set<Character> vowels = new HashSet<>();
+        vowels.add('a');
+        vowels.add('e');
+        vowels.add('i');
+        vowels.add('o');
+        vowels.add('u');
+
+        int cnt = 0, res = 0;
+        int n = s.length();
+
+        if (n < k) return 0;
+
+        for (int i = 0; i < k; i++) {
+            if (vowels.contains(s.charAt(i))) cnt++;
+        }
+
+        res = cnt;
+
+        for (int i = k; i < n; i++) {
+            if (vowels.contains(s.charAt(i - k))) cnt--;
+            if (vowels.contains(s.charAt(i))) cnt++;
+            res = Math.max(res, cnt);
+        }
+
+        return res;
+    }
+}
+
