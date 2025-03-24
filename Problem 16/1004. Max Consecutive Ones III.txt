@@ -1,0 +1,97 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/max-consecutive-ones-iii/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+##############-PYTHON-####################
+
+class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        one_lookup = 0
+        zero_lookup = 0
+        maxi = 0
+        flip_digit = 0
+        
+        while one_lookup < len(nums):
+            if nums[one_lookup] == 1:
+                one_lookup += 1
+            else:
+                if flip_digit < k:
+                    flip_digit += 1
+                    one_lookup += 1
+                else:
+                    while flip_digit == k:
+                        if nums[zero_lookup] == 0:
+                            flip_digit -= 1
+                        zero_lookup += 1
+            
+            maxi = max(maxi, one_lookup - zero_lookup)
+        
+        return maxi
+
+
+ 
+##############-C++-####################
+
+
+class Solution {
+public:
+    int longestOnes(vector<int>& nums, int k) {
+        int one_lookup = 0, zero_lookup = 0;
+        int maxi = 0, flip_digit = 0;
+
+        while (one_lookup < nums.size()) {
+            if (nums[one_lookup] == 1) {
+                one_lookup++;
+            } else {
+                if (flip_digit < k) {
+                    flip_digit++;
+                    one_lookup++;
+                } else {
+                    while (flip_digit == k) {
+                        if (nums[zero_lookup] == 0) {
+                            flip_digit--;
+                        }
+                        zero_lookup++;
+                    }
+                }
+            }
+            maxi = max(maxi, one_lookup - zero_lookup);
+        }
+        return maxi;
+    }
+};
+
+
+
+
+##############-Java-####################
+
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int one_lookup = 0, zero_lookup = 0;
+        int maxi = 0, flip_digit = 0;
+
+        while (one_lookup < nums.length) {
+            if (nums[one_lookup] == 1) {
+                one_lookup++;
+            } else {
+                if (flip_digit < k) {
+                    flip_digit++;
+                    one_lookup++;
+                } else {
+                    while (flip_digit == k) {
+                        if (nums[zero_lookup] == 0) {
+                            flip_digit--;
+                        }
+                        zero_lookup++;
+                    }
+                }
+            }
+            maxi = Math.max(maxi, one_lookup - zero_lookup);
+        }
+        return maxi;
+    }
+}
+
