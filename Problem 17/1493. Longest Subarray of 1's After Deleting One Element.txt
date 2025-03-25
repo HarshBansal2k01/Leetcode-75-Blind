@@ -1,0 +1,94 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+##############-PYTHON-####################
+
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+        rem_zero=0
+        check_one=0
+        cnt_of_zero=0
+        ans=0
+        n = len(nums)
+
+        while check_one < n:
+            if nums[check_one]==1:
+                check_one+=1
+            elif nums[check_one]==0:
+                cnt_of_zero+=1
+                check_one +=1
+            
+            while cnt_of_zero>1:
+                
+                if nums[rem_zero]==0:
+                    cnt_of_zero -=1
+                
+                rem_zero+=1
+            ans = max(ans,check_one - rem_zero)
+        return ans-1
+
+
+ 
+##############-C++-####################
+
+
+class Solution {
+public:
+    int longestSubarray(std::vector<int>& nums) {
+        int rem_zero = 0, check_one = 0, cnt_of_zero = 0, ans = 0;
+        int n = nums.size();
+
+        while (check_one < n) {
+            if (nums[check_one] == 1) {
+                check_one++;
+            } else if (nums[check_one] == 0) {
+                cnt_of_zero++;
+                check_one++;
+            }
+
+            while (cnt_of_zero > 1) {
+                if (nums[rem_zero] == 0) {
+                    cnt_of_zero--;
+                }
+                rem_zero++;
+            }
+
+            ans = std::max(ans, check_one - rem_zero);
+        }
+        return ans - 1;
+    }
+};
+
+
+
+##############-Java-####################
+
+class Solution {
+    public int longestSubarray(int[] nums) {
+        int rem_zero = 0, check_one = 0, cnt_of_zero = 0, ans = 0;
+        int n = nums.length;
+
+        while (check_one < n) {
+            if (nums[check_one] == 1) {
+                check_one++;
+            } else if (nums[check_one] == 0) {
+                cnt_of_zero++;
+                check_one++;
+            }
+
+            while (cnt_of_zero > 1) {
+                if (nums[rem_zero] == 0) {
+                    cnt_of_zero--;
+                }
+                rem_zero++;
+            }
+
+            ans = Math.max(ans, check_one - rem_zero);
+        }
+        return ans - 1;
+    }
+}
+
