@@ -1,0 +1,54 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/find-the-highest-altitude/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+##############-PYTHON-####################
+
+class Solution:
+    def largestAltitude(self, gain: List[int]) -> int:
+        n = len(gain)
+        prefix = 0
+        ans=0
+        for i in range(n):
+            prefix += gain[i]
+            ans = max(ans,prefix)
+        return ans
+
+
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int largestAltitude(std::vector<int>& gain) {
+        int n = gain.size();
+        int prefix = 0;
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            prefix += gain[i];
+            ans = max(ans, prefix);
+        }
+        return ans;
+    }
+};
+
+
+##############-Java-####################
+
+class Solution {
+    public int largestAltitude(int[] gain) {
+        int n = gain.length;
+        int prefix = 0;
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            prefix += gain[i];
+            ans = Math.max(ans, prefix);
+        }
+        return ans;
+    }
+}
+
+
