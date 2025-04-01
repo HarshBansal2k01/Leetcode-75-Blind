@@ -1,0 +1,82 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/find-pivot-index/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(N)
+
+##############-PYTHON-####################
+
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        n = len(nums)
+        pre=[0]*n
+        suff = [0]*n
+        pre[0]=nums[0]
+        suff[n-1]=nums[n-1]
+        for i in range(1,n):
+            pre[i] = pre[i-1] + nums[i]
+        
+        for i in range(n-2,-1,-1):
+            suff[i] = suff[i+1] + nums[i]
+        
+        for i in range(n):
+            if pre[i] == suff[i]:
+                return i
+        
+        return -1
+        
+
+ 
+##############-C++-####################
+
+using namespace std;
+
+class Solution {
+public:
+    int pivotIndex(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> pre(n, 0), suff(n, 0);
+        
+        pre[0] = nums[0];
+        suff[n - 1] = nums[n - 1];
+        
+        for (int i = 1; i < n; i++)
+            pre[i] = pre[i - 1] + nums[i];
+
+        for (int i = n - 2; i >= 0; i--)
+            suff[i] = suff[i + 1] + nums[i];
+
+        for (int i = 0; i < n; i++)
+            if (pre[i] == suff[i])
+                return i;
+
+        return -1;
+    }
+};
+
+
+
+##############-Java-####################
+
+class Solution {
+    public int pivotIndex(int[] nums) {
+        int n = nums.length;
+        int[] pre = new int[n];
+        int[] suff = new int[n];
+
+        pre[0] = nums[0];
+        suff[n - 1] = nums[n - 1];
+
+        for (int i = 1; i < n; i++)
+            pre[i] = pre[i - 1] + nums[i];
+
+        for (int i = n - 2; i >= 0; i--)
+            suff[i] = suff[i + 1] + nums[i];
+
+        for (int i = 0; i < n; i++)
+            if (pre[i] == suff[i])
+                return i;
+
+        return -1;
+    }
+}
