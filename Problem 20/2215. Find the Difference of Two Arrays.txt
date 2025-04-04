@@ -1,0 +1,80 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/find-the-difference-of-two-arrays/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N+M)
+Space Complexity :- O(N+M)
+
+##############-PYTHON-####################
+
+class Solution:
+    def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
+        set1 = set(nums1) 
+        set2 = set(nums2)  
+
+        res1 = list(set1 - set2)
+        res2 = list(set2 - set1)
+
+        return [res1, res2]
+       
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
+        unordered_set<int> set1(nums1.begin(), nums1.end());
+        unordered_set<int> set2(nums2.begin(), nums2.end());
+        
+        vector<int> res1, res2;
+
+        for (int num : set1) {
+            if (set2.find(num) == set2.end()) {
+                res1.push_back(num);
+            }
+        }
+
+        for (int num : set2) {
+            if (set1.find(num) == set1.end()) {
+                res2.push_back(num);
+            }
+        }
+
+        return {res1, res2};
+    }
+};
+
+
+
+
+##############-Java-####################
+
+class Solution {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+        Set<Integer> set1 = new HashSet<>();
+        Set<Integer> set2 = new HashSet<>();
+
+        for (int n : nums1) set1.add(n);
+        for (int n : nums2) set2.add(n);
+
+        List<Integer> res1 = new ArrayList<>();
+        List<Integer> res2 = new ArrayList<>();
+
+        for (int n : set1) {
+            if (!set2.contains(n)) {
+                res1.add(n);
+            }
+        }
+
+        for (int n : set2) {
+            if (!set1.contains(n)) {
+                res2.add(n);
+            }
+        }
+
+        List<List<Integer>> result = new ArrayList<>();
+        result.add(res1);
+        result.add(res2);
+        return result;
+    }
+}
+
