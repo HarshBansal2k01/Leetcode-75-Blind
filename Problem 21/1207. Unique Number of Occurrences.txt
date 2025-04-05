@@ -1,0 +1,66 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/unique-number-of-occurrences/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(N)
+
+##############-PYTHON-####################
+
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        mapp = {}
+
+        for val in arr:
+            if val in mapp:
+                mapp[val] += 1
+            else:
+                mapp[val] = 1
+
+        sett = set()
+        for key,val in mapp.items():
+            sett.add(val)
+
+        
+        return len(sett) == len(mapp)
+       
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        unordered_map<int, int> mapp;
+
+        for (int val : arr) {
+            mapp[val]++;
+        }
+
+        unordered_set<int> sett;
+        for (auto& pair : mapp) {
+            sett.insert(pair.second);
+        }
+
+        return sett.size() == mapp.size();
+    }
+};
+
+
+##############-Java-####################
+
+class Solution {
+    public boolean uniqueOccurrences(int[] arr) {
+        Map<Integer, Integer> mapp = new HashMap<>();
+
+        for (int val : arr) {
+            mapp.put(val, mapp.getOrDefault(val, 0) + 1);
+        }
+
+        Set<Integer> sett = new HashSet<>();
+        for (int val : mapp.values()) {
+            sett.add(val);
+        }
+
+        return sett.size() == mapp.size();
+    }
+}
+
