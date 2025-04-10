@@ -1,0 +1,91 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/determine-if-two-strings-are-close/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+##############-PYTHON-####################
+
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        
+        if len(word1) != len(word2):
+            return False
+        
+        w1 = [0]*(26)
+        w2 = [0]*(26)
+
+        for val in word1:
+            w1[ord(val)- ord('a')] +=1
+        
+        for val in word2:
+            w2[ord(val)-ord('a')] +=1
+        
+        if set(word1) != set(word2):
+            return False
+        
+        return sorted(w1) == sorted(w2)
+        
+       
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    bool closeStrings(string word1, string word2) {
+        if (word1.length() != word2.length()) return false;
+
+        vector<int> w1(26, 0), w2(26, 0);
+        unordered_set<char> s1, s2;
+
+        for (char ch : word1) {
+            w1[ch - 'a']++;
+            s1.insert(ch);
+        }
+
+        for (char ch : word2) {
+            w2[ch - 'a']++;
+            s2.insert(ch);
+        }
+
+        sort(w1.begin(), w1.end());
+        sort(w2.begin(), w2.end());
+
+        return (w1 == w2) && (s1 == s2);
+    }
+};
+
+
+
+##############-Java-####################
+
+import java.util.*;
+
+class Solution {
+    public boolean closeStrings(String word1, String word2) {
+        if (word1.length() != word2.length()) return false;
+
+        int[] w1 = new int[26];
+        int[] w2 = new int[26];
+
+        Set<Character> s1 = new HashSet<>();
+        Set<Character> s2 = new HashSet<>();
+
+        for (char ch : word1.toCharArray()) {
+            w1[ch - 'a']++;
+            s1.add(ch);
+        }
+
+        for (char ch : word2.toCharArray()) {
+            w2[ch - 'a']++;
+            s2.add(ch);
+        }
+
+        Arrays.sort(w1);
+        Arrays.sort(w2);
+
+        return Arrays.equals(w1, w2) && s1.equals(s2);
+    }
+}
+
+
