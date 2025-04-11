@@ -1,0 +1,100 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/equal-row-and-column-pairs/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N^2)
+Space Complexity :- ~O(N)
+
+##############-PYTHON-####################
+
+class Solution:
+    def equalPairs(self, grid: List[List[int]]) -> int:
+        mapp = dict()
+        n = len(grid)
+        cnt=0
+
+        for i in range(n):            
+            arr = tuple(grid[i][:n])
+            if arr in mapp:
+                mapp[arr]+=1
+            else:
+                mapp[arr]=1
+        
+
+        for j in range(n):
+            arr=[]
+            for i in range(n):
+                arr.append(grid[i][j])
+            
+            arr_key = tuple(arr)
+
+            if arr_key in mapp:
+                cnt += mapp[arr_key]
+        return cnt
+            
+        
+       
+ 
+##############-C++-####################
+
+using namespace std;
+
+class Solution {
+public:
+    int equalPairs(vector<vector<int>>& grid) {
+        map<vector<int>, int> mapp;
+        int n = grid.size();
+        int count = 0;
+
+        // Store row patterns
+        for (int i = 0; i < n; ++i) {
+            vector<int> row = grid[i];
+            mapp[row]++;
+        }
+
+        // Compare with column patterns
+        for (int j = 0; j < n; ++j) {
+            vector<int> col;
+            for (int i = 0; i < n; ++i) {
+                col.push_back(grid[i][j]);
+            }
+            count += mapp[col];
+        }
+
+        return count;
+    }
+};
+
+
+
+
+##############-Java-####################
+
+class Solution {
+    public int equalPairs(int[][] grid) {
+        Map<List<Integer>, Integer> map = new HashMap<>();
+        int n = grid.length;
+        int count = 0;
+
+        // Store row patterns
+        for (int i = 0; i < n; i++) {
+            List<Integer> row = new ArrayList<>();
+            for (int j = 0; j < n; j++) {
+                row.add(grid[i][j]);
+            }
+            map.put(row, map.getOrDefault(row, 0) + 1);
+        }
+
+        // Compare with column patterns
+        for (int j = 0; j < n; j++) {
+            List<Integer> col = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                col.add(grid[i][j]);
+            }
+            count += map.getOrDefault(col, 0);
+        }
+
+        return count;
+    }
+}
+
+
