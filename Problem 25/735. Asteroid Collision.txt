@@ -1,0 +1,105 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/asteroid-collision/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(N)
+
+##############-PYTHON-####################
+
+class Solution:
+    def asteroidCollision(self, ast: List[int]) -> List[int]:
+        n = len(ast)
+        stack = []
+
+        i = 0
+        while i < n:
+            if len(stack) == 0:
+                stack.append(ast[i])
+            elif stack[-1] < 0:
+                stack.append(ast[i])
+            else:
+                if ast[i] > 0:
+                    stack.append(ast[i])
+                else:
+                    if abs(ast[i]) == stack[-1]:
+                        stack.pop()
+                    elif abs(ast[i]) < stack[-1]:
+                        pass
+                    else:
+                        stack.pop()
+                        i -= 1
+            i += 1
+        
+        return stack
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& ast) {
+        int n = ast.size();
+        vector<int> stack;
+
+        int i = 0;
+        while (i < n) {
+            if (stack.empty()) {
+                stack.push_back(ast[i]);
+            } else if (stack.back() < 0) {
+                stack.push_back(ast[i]);
+            } else {
+                if (ast[i] > 0) {
+                    stack.push_back(ast[i]);
+                } else {
+                    if (abs(ast[i]) == stack.back()) {
+                        stack.pop_back();
+                    } else if (abs(ast[i]) < stack.back()) {
+                        // do nothing
+                    } else {
+                        stack.pop_back();
+                        i--;
+                    }
+                }
+            }
+            i++;
+        }
+
+        return stack;
+    }
+};
+
+
+
+##############-Java-####################
+class Solution {
+    public List<Integer> asteroidCollision(int[] ast) {
+        int n = ast.length;
+        List<Integer> stack = new ArrayList<>();
+
+        int i = 0;
+        while (i < n) {
+            if (stack.isEmpty()) {
+                stack.add(ast[i]);
+            } else if (stack.get(stack.size() - 1) < 0) {
+                stack.add(ast[i]);
+            } else {
+                if (ast[i] > 0) {
+                    stack.add(ast[i]);
+                } else {
+                    int last = stack.get(stack.size() - 1);
+                    if (Math.abs(ast[i]) == last) {
+                        stack.remove(stack.size() - 1);
+                    } else if (Math.abs(ast[i]) < last) {
+                        // do nothing
+                    } else {
+                        stack.remove(stack.size() - 1);
+                        i--;
+                    }
+                }
+            }
+            i++;
+        }
+
+        return stack;
+    }
+}
