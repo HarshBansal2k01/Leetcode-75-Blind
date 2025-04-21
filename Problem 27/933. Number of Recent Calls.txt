@@ -1,0 +1,70 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/number-of-recent-calls/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(N)
+
+##############-PYTHON-####################
+
+class RecentCounter:
+
+    def __init__(self):
+        self.queue = []
+
+        
+
+    def ping(self, t: int) -> int:
+        self.queue.append(t)
+        start_time = t-3000
+
+        while self.queue and self.queue[0] < start_time:
+            self.queue.pop(0)
+        
+        return len(self.queue)
+ 
+##############-C++-####################
+
+lass RecentCounter {
+private:
+    queue<int> q;
+
+public:
+    RecentCounter() {
+    }
+
+    int ping(int t) {
+        q.push(t);
+        int startTime = t - 3000;
+
+        while (!q.empty() && q.front() < startTime) {
+            q.pop();
+        }
+
+        return q.size();
+    }
+};
+
+
+
+##############-Java-####################
+
+class RecentCounter {
+
+    private Queue<Integer> queue;
+
+    public RecentCounter() {
+        queue = new LinkedList<>();
+    }
+
+    public int ping(int t) {
+        queue.offer(t);
+        int startTime = t - 3000;
+
+        while (!queue.isEmpty() && queue.peek() < startTime) {
+            queue.poll();
+        }
+
+        return queue.size();
+    }
+}
+
