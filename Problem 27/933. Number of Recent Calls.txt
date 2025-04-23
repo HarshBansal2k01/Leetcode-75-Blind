@@ -24,7 +24,7 @@ class RecentCounter:
  
 ##############-C++-####################
 
-lass RecentCounter {
+class RecentCounter {
 private:
     queue<int> q;
 
