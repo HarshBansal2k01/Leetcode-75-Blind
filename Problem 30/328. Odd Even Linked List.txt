@@ -1,0 +1,138 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/odd-even-linked-list/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head is None or head.next is None:
+            return head
+        curr = head
+        evenhead,eventail,oddhead,oddtail=None,None,None,None
+        cnt=1
+        while curr:
+            if cnt%2 !=0:
+                if oddhead is None:
+                    oddhead =curr
+                    oddtail = curr             
+                else:
+                    oddtail.next = curr
+                    oddtail = oddtail.next         
+            else:
+                if evenhead is None:
+                    evenhead = curr
+                    eventail = curr           
+                else:
+                    eventail.next = curr
+                    eventail = eventail.next             
+            cnt+=1
+            curr = curr.next    
+        if  eventail :
+            eventail.next=None
+        if oddtail:
+            oddtail.next = None       
+        if oddhead:
+            oddtail.next = evenhead
+        else:
+            oddhead=evenhead      
+        return oddhead
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) return head;
+        
+        ListNode* curr = head;
+        ListNode *evenhead = nullptr, *eventail = nullptr;
+        ListNode *oddhead = nullptr, *oddtail = nullptr;
+        int cnt = 1;
+        
+        while (curr) {
+            if (cnt % 2 != 0) {
+                if (oddhead == nullptr) {
+                    oddhead = curr;
+                    oddtail = curr;
+                } else {
+                    oddtail->next = curr;
+                    oddtail = oddtail->next;
+                }
+            } else {
+                if (evenhead == nullptr) {
+                    evenhead = curr;
+                    eventail = curr;
+                } else {
+                    eventail->next = curr;
+                    eventail = eventail->next;
+                }
+            }
+            cnt++;
+            curr = curr->next;
+        }
+        
+        if (eventail) eventail->next = nullptr;
+        if (oddtail) oddtail->next = nullptr;
+        
+        if (oddhead) {
+            oddtail->next = evenhead;
+        } else {
+            oddhead = evenhead;
+        }
+        
+        return oddhead;
+    }
+};
+
+
+
+##############-Java-####################
+
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        
+        ListNode curr = head;
+        ListNode evenhead = null, eventail = null;
+        ListNode oddhead = null, oddtail = null;
+        int cnt = 1;
+        
+        while (curr != null) {
+            if (cnt % 2 != 0) {
+                if (oddhead == null) {
+                    oddhead = curr;
+                    oddtail = curr;
+                } else {
+                    oddtail.next = curr;
+                    oddtail = oddtail.next;
+                }
+            } else {
+                if (evenhead == null) {
+                    evenhead = curr;
+                    eventail = curr;
+                } else {
+                    eventail.next = curr;
+                    eventail = eventail.next;
+                }
+            }
+            cnt++;
+            curr = curr.next;
+        }
+        
+        if (eventail != null) eventail.next = null;
+        if (oddtail != null) oddtail.next = null;
+        
+        if (oddhead != null) {
+            oddtail.next = evenhead;
+        } else {
+            oddhead = evenhead;
+        }
+        
+        return oddhead;
+    }
+}
