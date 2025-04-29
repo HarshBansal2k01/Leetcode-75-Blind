@@ -1,4 +1,4 @@
-Link to Youtube Video :- https://www.youtube.com/watch?v=QcxLd8GKtNw
+Link to Youtube Video :- https://www.youtube.com/watch?v=m75YQhEqu-4
 Link to Leetcode problem :- https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/?envType=study-plan-v2&envId=leetcode-75
 
 Time Complexity :- O(N)
