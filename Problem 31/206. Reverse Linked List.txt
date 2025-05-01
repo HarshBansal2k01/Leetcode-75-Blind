@@ -1,0 +1,65 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/reverse-linked-list/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        
+        if head is None:
+            return head
+        
+        curr = head
+        prev = None        
+        while curr:
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
+        
+        return prev
+
+ 
+##############-C++-####################
+
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = nullptr;
+        ListNode* curr = head;
+
+        while (curr != nullptr) {
+            ListNode* nxt = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nxt;
+        }
+
+        return prev;
+    }
+};
+
+
+##############-Java-####################
+
+
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+
+        while (curr != null) {
+            ListNode nxt = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nxt;
+        }
+
+        return prev;
+    }
+}
