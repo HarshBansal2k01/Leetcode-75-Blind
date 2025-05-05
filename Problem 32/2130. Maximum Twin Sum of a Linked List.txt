@@ -1,0 +1,136 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        prev = None
+        curr = head
+
+        while curr:
+            next_node = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next_node
+
+        return prev
+
+    def pairSum(self, head: ListNode) -> int:
+        slow = head
+        fast = head
+
+
+        while fast and fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        slow.next = self.reverseList(slow.next)
+        second = slow.next
+        first = head
+
+        max_sum = 0
+        while second:
+            max_sum = max(max_sum, first.val + second.val)
+            first = first.next
+            second = second.next
+        return max_sum        cha
+
+ 
+##############-C++-####################
+
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = NULL;
+        ListNode* curr = head;
+        
+        while (curr) {
+            ListNode* next_node = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next_node;
+        }
+        
+        return prev;
+    }
+
+    int pairSum(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        // Move slow pointer to the middle and fast pointer to the end
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        // Reverse the second half of the list
+        slow = reverseList(slow);
+
+        ListNode* first = head;
+        ListNode* second = slow;
+        int max_sum = 0;
+
+        // Calculate the maximum pair sum
+        while (second) {
+            max_sum = max(max_sum, first->val + second->val);
+            first = first->next;
+            second = second->next;
+        }
+
+        return max_sum;
+    }
+};
+
+
+##############-Java-####################
+
+
+public class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        
+        while (curr != null) {
+            ListNode nextNode = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        
+        return prev;
+    }
+
+    public int pairSum(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        // Move slow pointer to the middle and fast pointer to the end
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Reverse the second half of the list
+        slow = reverseList(slow);
+
+        ListNode first = head;
+        ListNode second = slow;
+        int maxSum = 0;
+
+        // Calculate the maximum pair sum
+        while (second != null) {
+            maxSum = Math.max(maxSum, first.val + second.val);
+            first = first.next;
+            second = second.next;
+        }
+
+        return maxSum;
+    }
+}
