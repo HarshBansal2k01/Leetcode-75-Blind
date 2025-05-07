@@ -1,0 +1,69 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/maximum-depth-of-binary-tree/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+
+##############-PYTHON-####################
+
+class Solution:
+
+    def height(self,root):
+        if root==None:
+            return 0
+        
+        left = self.height(root.left)
+        right = self.height(root.right)
+        return 1 + max(left, right)
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+
+        if root == None:
+            return 0
+        
+        return self.height(root)
+        
+
+ 
+##############-C++-####################
+
+
+class Solution {
+public:
+    int height(TreeNode* root) {
+        if (root == nullptr) return 0;
+
+        int left = height(root->left);
+        int right = height(root->right);
+
+        return 1 + max(left, right);
+    }
+
+    int maxDepth(TreeNode* root) {
+        if (root == nullptr) return 0;
+
+        return height(root);
+    }
+};
+
+
+
+##############-Java-####################
+
+
+class Solution {
+    public int height(TreeNode root) {
+        if (root == null) return 0;
+
+        int left = height(root.left);
+        int right = height(root.right);
+
+        return 1 + Math.max(left, right);
+    }
+
+    public int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+
+        return height(root);
+    }
+}

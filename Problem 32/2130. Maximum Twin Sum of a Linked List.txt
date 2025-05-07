@@ -38,7 +38,7 @@ class Solution:
             max_sum = max(max_sum, first.val + second.val)
             first = first.next
             second = second.next
-        return max_sum        cha
+        return max_sum       
 
  
 ##############-C++-####################
