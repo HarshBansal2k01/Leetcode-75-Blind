@@ -1,0 +1,83 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/leaf-similar-trees/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def leaf(self, v, root):
+        if not root:
+            return
+        if not root.left and not root.right:
+            v.append(root.val)
+        self.leaf(v, root.left)
+        self.leaf(v, root.right)
+
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        v1 = []
+        v2 = []
+        self.leaf(v1, root1)
+        self.leaf(v2, root2)
+        return v1 == v2
+        
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    // Helper function to collect leaf values into a vector
+    void leaf(vector<int>& v, TreeNode* root) {
+        if (root == nullptr) {
+            return;
+        }
+        if (root->left == nullptr && root->right == nullptr) {
+            v.push_back(root->val);
+        }
+        leaf(v, root->left);
+        leaf(v, root->right);
+    }
+
+    // Function to check if two trees have the same leaf sequence
+    bool leafSimilar(TreeNode* root1, TreeNode* root2) {
+        vector<int> v1, v2;
+        leaf(v1, root1);
+        leaf(v2, root2);
+        
+        return v1 == v2;
+    }
+};
+
+
+
+##############-Java-####################
+
+
+public class Solution {
+    
+    // Helper function to collect leaf values into a list
+    private void leaf(List<Integer> v, TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        if (root.left == null && root.right == null) {
+            v.add(root.val);
+        }
+        leaf(v, root.left);
+        leaf(v, root.right);
+    }
+
+    // Function to check if two trees have the same leaf sequence
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        List<Integer> v1 = new ArrayList<>();
+        List<Integer> v2 = new ArrayList<>();
+        
+        leaf(v1, root1);
+        leaf(v2, root2);
+        
+        return v1.equals(v2);
+    }
+}
