@@ -2,7 +2,7 @@ Link to Youtube Video :-
 Link to Leetcode problem :- https://leetcode.com/problems/leaf-similar-trees/description/?envType=study-plan-v2&envId=leetcode-75
 
 Time Complexity :- O(N)
-Space Complexity :- O(1)
+Space Complexity :- O(N)
 
 
 ##############-PYTHON-####################
