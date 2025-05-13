@@ -1,0 +1,84 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/count-good-nodes-in-binary-tree/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def inorder(self, root, maxSoFar):
+        if not root:
+            return 0
+
+        count = 0
+        if root.val >= maxSoFar:
+            count = 1
+            maxSoFar = root.val
+
+        count += self.preorder(root.left, maxSoFar)
+        count += self.preorder(root.right, maxSoFar)
+
+        return count
+
+    def goodNodes(self, root):
+        if not root:
+            return 0
+        return self.preorder(root, root.val)
+        
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int preorder(TreeNode* root, int maxSoFar) {
+        if (!root) return 0;
+
+        int count = 0;
+        if (root->val >= maxSoFar) {
+            count = 1;
+            maxSoFar = root->val;
+        }
+
+        count += preorder(root->left, maxSoFar);
+        count += preorder(root->right, maxSoFar);
+
+        return count;
+    }
+
+    int goodNodes(TreeNode* root) {
+        if (!root) return 0;
+        return preorder(root, root->val);
+    }
+};
+
+
+
+
+##############-Java-####################
+
+
+class Solution {
+    public int preorder(TreeNode root, int maxSoFar) {
+        if (root == null) return 0;
+
+        int count = 0;
+        if (root.val >= maxSoFar) {
+            count = 1;
+            maxSoFar = root.val;
+        }
+
+        count += preorder(root.left, maxSoFar);
+        count += preorder(root.right, maxSoFar);
+
+        return count;
+    }
+
+    public int goodNodes(TreeNode root) {
+        if (root == null) return 0;
+        return preorder(root, root.val);
+    }
+}
+
