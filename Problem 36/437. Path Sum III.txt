@@ -1,0 +1,97 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/path-sum-iii/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(N)
+
+
+##############-PYTHON-####################
+
+class Solution:
+
+    def __init__(self):
+        self.totalSum=0
+
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+        prefix_sum = defaultdict(int)
+        prefix_sum[0]=1
+
+        self.findPathSum(root,0,targetSum,prefix_sum)
+        return self.totalSum
+    
+    def findPathSum(self,root,currentSum,targetSum,prefix_sum):
+        if not root:
+            return
+        
+        currentSum += root.val
+        diff = currentSum - targetSum
+        self.totalSum += prefix_sum.get(diff,0)
+
+        prefix_sum[currentSum]+=1
+
+        self.findPathSum(root.left,currentSum,targetSum,prefix_sum)
+        self.findPathSum(root.right,currentSum,targetSum,prefix_sum)
+
+        prefix_sum[currentSum]-=1
+        
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int totalSum = 0;
+
+    int pathSum(TreeNode* root, int targetSum) {
+        unordered_map<long, int> prefix_sum;
+        prefix_sum[0] = 1;
+        findPathSum(root, 0, targetSum, prefix_sum);
+        return totalSum;
+    }
+
+    void findPathSum(TreeNode* node, long currentSum, int targetSum, unordered_map<long, int>& prefix_sum) {
+        if (!node) return;
+
+        currentSum += node->val;
+        long diff = currentSum - targetSum;
+        totalSum += prefix_sum[diff];
+
+        prefix_sum[currentSum]++;
+
+        findPathSum(node->left, currentSum, targetSum, prefix_sum);
+        findPathSum(node->right, currentSum, targetSum, prefix_sum);
+
+        prefix_sum[currentSum]--;  // backtrack
+    }
+};
+
+
+
+##############-Java-####################
+
+
+class Solution {
+    private int totalSum = 0;
+
+    public int pathSum(TreeNode root, int targetSum) {
+        HashMap<Long, Integer> prefix_sum = new HashMap<>();
+        prefix_sum.put(0L, 1);
+        findPathSum(root, 0L, targetSum, prefix_sum);
+        return totalSum;
+    }
+
+    private void findPathSum(TreeNode node, long currentSum, int targetSum, HashMap<Long, Integer> prefix_sum) {
+        if (node == null) return;
+
+        currentSum += node.val;
+        long diff = currentSum - targetSum;
+        totalSum += prefix_sum.getOrDefault(diff, 0);
+
+        prefix_sum.put(currentSum, prefix_sum.getOrDefault(currentSum, 0) + 1);
+
+        findPathSum(node.left, currentSum, targetSum, prefix_sum);
+        findPathSum(node.right, currentSum, targetSum, prefix_sum);
+
+        prefix_sum.put(currentSum, prefix_sum.get(currentSum) - 1); // backtrack
+    }
+}

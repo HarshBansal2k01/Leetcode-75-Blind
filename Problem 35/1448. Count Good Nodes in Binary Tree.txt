@@ -8,7 +8,7 @@ Space Complexity :- O(1)
 ##############-PYTHON-####################
 
 class Solution:
-    def inorder(self, root, maxSoFar):
+    def preorder(self, root, maxSoFar):
         if not root:
             return 0
 
