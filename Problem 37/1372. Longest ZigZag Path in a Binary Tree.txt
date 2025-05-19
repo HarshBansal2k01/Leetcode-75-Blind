@@ -1,0 +1,102 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/longest-zigzag-path-in-a-binary-tree/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+
+##############-PYTHON-####################
+
+class Solution:
+
+    def __init__(self):
+        self.ans=0
+
+    def zigzag(self,root,cnt,flag):
+        if not root:
+            return
+        
+        self.ans = max(cnt,self.ans)
+        
+        if flag == 0:
+                self.zigzag(root.right,cnt+1,1)
+                self.zigzag(root.left,1,0)
+        else:
+                self.zigzag(root.left,cnt+1,0)
+                self.zigzag(root.right,1,1)
+        
+
+    def longestZigZag(self, root: Optional[TreeNode]) -> int:
+
+        if not root:
+            return 0
+
+        self.zigzag(root,0,0) #left
+        self.zigzag(root,0,1) #right
+
+        return self.ans
+               
+
+ 
+##############-C++-####################
+
+class Solution {
+    int ans = 0;
+    
+    void zigzag(TreeNode* root, int cnt, int flag) {
+        if (!root) return;
+        
+        ans = max(ans, cnt);
+        
+        if (flag == 0) {
+            zigzag(root->right, cnt + 1, 1);
+            zigzag(root->left, 1, 0);
+        } else {
+            zigzag(root->left, cnt + 1, 0);
+            zigzag(root->right, 1, 1);
+        }
+    }
+    
+public:
+    int longestZigZag(TreeNode* root) {
+        if (!root) return 0;
+        
+        zigzag(root, 0, 0); // start going left
+        zigzag(root, 0, 1); // start going right
+        
+        return ans;
+    }
+};
+
+
+
+
+##############-Java-####################
+
+
+class Solution {
+    int ans = 0;
+    
+    private void zigzag(TreeNode root, int cnt, int flag) {
+        if (root == null) return;
+        
+        ans = Math.max(ans, cnt);
+        
+        if (flag == 0) {
+            zigzag(root.right, cnt + 1, 1);
+            zigzag(root.left, 1, 0);
+        } else {
+            zigzag(root.left, cnt + 1, 0);
+            zigzag(root.right, 1, 1);
+        }
+    }
+    
+    public int longestZigZag(TreeNode root) {
+        if (root == null) return 0;
+        
+        zigzag(root, 0, 0); // start going left
+        zigzag(root, 0, 1); // start going right
+        
+        return ans;
+    }
+}
