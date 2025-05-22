@@ -1,4 +1,4 @@
-Link to Youtube Video :- 
+Link to Youtube Video :- https://www.youtube.com/watch?v=b7Pm60u6K9Y
 Link to Leetcode problem :- https://leetcode.com/problems/longest-zigzag-path-in-a-binary-tree/?envType=study-plan-v2&envId=leetcode-75
 
 Time Complexity :- O(N)
