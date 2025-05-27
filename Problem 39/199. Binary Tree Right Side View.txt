@@ -1,0 +1,92 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/binary-tree-right-side-view/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(H)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+
+        result = []
+        queue = deque([root])
+
+        while queue:
+            level_size = len(queue)
+
+            for i in range(level_size):
+                node = queue.popleft()
+                if i == 0:
+                    result.append(node.val)
+                if node.right:
+                    queue.append(node.right)
+                if node.left:
+                    queue.append(node.left)
+
+        return result
+               
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        if (!root) return {};
+
+        vector<int> result;
+        queue<TreeNode*> q;
+        q.push(root);
+
+        while (!q.empty()) {
+            int level_size = q.size();
+            for (int i = 0; i < level_size; ++i) {
+                TreeNode* node = q.front();
+                q.pop();
+                if (i == 0) {
+                    result.push_back(node->val);
+                }
+                if (node->right) q.push(node->right);
+                if (node->left) q.push(node->left);
+            }
+        }
+
+        return result;
+    }
+};
+
+
+
+
+
+##############-Java-####################
+
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            for (int i = 0; i < levelSize; ++i) {
+                TreeNode node = queue.poll();
+                if (i == 0) {
+                    result.add(node.val);
+                }
+                if (node.right != null) queue.offer(node.right);
+                if (node.left != null) queue.offer(node.left);
+            }
+        }
+
+        return result;
+    }
+}
+
+
