@@ -1,0 +1,59 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/search-in-a-binary-search-tree/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(LogN)
+Space Complexity :- O(1)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def searchBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        while root and root.val != val:
+            if val > root.val:
+                root = root.right
+            else:
+                root = root.left
+        return root
+
+               
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    TreeNode* searchBST(TreeNode* root, int val) {
+        if(!root){
+            return NULL;
+        }
+
+        while(root and root->val != val){
+            if(val > root->val){
+                root= root->right;
+            }
+            else{
+                root = root->left;
+            }
+        }
+        
+        return root;
+    }
+};
+
+
+##############-Java-####################
+
+class Solution {
+    public TreeNode searchBST(TreeNode root, int val) {
+        while (root != null && root.val != val) {
+            if (val > root.val) {
+                root = root.right;
+            } else {
+                root = root.left;
+            }
+        }
+        return root;
+    }
+}
+ 
