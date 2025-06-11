@@ -1,0 +1,121 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/keys-and-rooms/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N+E)
+Space Complexity :- O(N+E)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def dfs(self,node,vis,adj):
+        vis[node]=1
+
+        for val in adj[node]:
+            if not vis[val]:
+                self.dfs(val,vis,adj)
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        n = len(rooms)
+
+        adj = [[] for _ in range(n)]
+
+        for i in range(n):
+            for val in rooms[i]:
+                adj[i].append(val)
+        
+        vis=[0]*n
+        cnt=0
+        for i in range(n):
+            if not vis[i]:
+                cnt+=1
+
+                self.dfs(i,vis,adj)
+
+                if cnt>1:return False
+        
+        return True
+
+               
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    void dfs(int node, vector<int>& vis, vector<vector<int>>& adj) {
+        vis[node] = 1;
+        for (int val : adj[node]) {
+            if (!vis[val]) {
+                dfs(val, vis, adj);
+            }
+        }
+    }
+
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        int n = rooms.size();
+        vector<vector<int>> adj(n);
+
+        for (int i = 0; i < n; ++i) {
+            for (int val : rooms[i]) {
+                adj[i].push_back(val);
+            }
+        }
+
+        vector<int> vis(n, 0);
+        int cnt = 0;
+
+        for (int i = 0; i < n; ++i) {
+            if (!vis[i]) {
+                cnt++;
+                dfs(i, vis, adj);
+                if (cnt > 1) return false;
+            }
+        }
+
+        return true;
+    }
+};
+
+
+
+##############-Java-####################
+
+class Solution {
+    void dfs(int node, boolean[] vis, List<List<Integer>> adj) {
+        vis[node] = true;
+        for (int val : adj.get(node)) {
+            if (!vis[val]) {
+                dfs(val, vis, adj);
+            }
+        }
+    }
+
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        int n = rooms.size();
+        List<List<Integer>> adj = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int val : rooms.get(i)) {
+                adj.get(i).add(val);
+            }
+        }
+
+        boolean[] vis = new boolean[n];
+        int cnt = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (!vis[i]) {
+                cnt++;
+                dfs(i, vis, adj);
+                if (cnt > 1) return false;
+            }
+        }
+
+        return true;
+    }
+}
+
