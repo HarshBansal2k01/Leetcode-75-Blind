@@ -1,0 +1,111 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(N)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def __init__(self):
+        self.count = 0
+    
+    def dfs(self, node, parent, adj, visited):
+        visited[node] = True
+        for v, check in adj[node]:
+            if not visited[v]:
+                if check == 1:
+                    self.count += 1
+                visited[v] = True
+                self.dfs(v, node, adj, visited)
+    
+    def minReorder(self, n, connections):
+        adj = [[] for _ in range(n)]
+        for u, v in connections:
+            adj[u].append((v, 1))  # original direction
+            adj[v].append((u, 0))  # reverse direction
+        
+        visited = [False] * n
+        self.dfs(0, -1, adj, visited)
+        return self.count
+               
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int count = 0;
+
+    void dfs(int node, int parent, vector<vector<pair<int, int>>>& adj, vector<bool>& visited) {
+        visited[node] = true;
+
+        for (auto& [v, direction] : adj[node]) {
+            if (!visited[v]) {
+                if (direction == 1) {
+                    count++;
+                }
+                dfs(v, node, adj, visited);
+            }
+        }
+    }
+
+    int minReorder(int n, vector<vector<int>>& connections) {
+        vector<vector<pair<int, int>>> adj(n);
+
+        for (auto& conn : connections) {
+            int u = conn[0], v = conn[1];
+            adj[u].emplace_back(v, 1); // original direction
+            adj[v].emplace_back(u, 0); // reverse direction
+        }
+
+        vector<bool> visited(n, false);
+        dfs(0, -1, adj, visited);
+        return count;
+    }
+};
+
+
+
+
+##############-Java-####################
+
+class Solution {
+    int count = 0;
+
+    public void dfs(int node, int parent, List<List<int[]>> adj, boolean[] visited) {
+        visited[node] = true;
+
+        for (int[] neighbor : adj.get(node)) {
+            int v = neighbor[0];
+            int direction = neighbor[1];
+
+            if (!visited[v]) {
+                if (direction == 1) {
+                    count++;
+                }
+                dfs(v, node, adj, visited);
+            }
+        }
+    }
+
+    public int minReorder(int n, int[][] connections) {
+        List<List<int[]>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        for (int[] conn : connections) {
+            int u = conn[0], v = conn[1];
+            adj.get(u).add(new int[]{v, 1}); // original direction
+            adj.get(v).add(new int[]{u, 0}); // reverse direction
+        }
+
+        boolean[] visited = new boolean[n];
+        dfs(0, -1, adj, visited);
+        return count;
+    }
+}
+
+
