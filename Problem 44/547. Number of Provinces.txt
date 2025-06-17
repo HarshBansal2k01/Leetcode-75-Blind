@@ -1,4 +1,4 @@
-Link to Youtube Video :- https://www.youtube.com/watch?v=6OHa_QOt_Gw
+Link to Youtube Video :- https://www.youtube.com/watch?v=O8EeawfpaP4
 Link to Leetcode problem :- https://leetcode.com/problems/number-of-provinces/description/?envType=study-plan-v2&envId=leetcode-75
 
 Time Complexity :- O(N+E)
