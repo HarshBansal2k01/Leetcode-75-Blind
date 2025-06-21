@@ -1,0 +1,154 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/evaluate-division/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N+Q*N)
+Space Complexity :- O(N+Q)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def dfs(self, adj, src, dst, visited, product):
+        if src in visited:
+            return -1.0
+        if src == dst:
+            return product
+
+        visited.add(src)
+
+        for neighbor, value in adj[src]:
+            result = self.dfs(adj, neighbor, dst, visited, product * value)
+            if result != -1.0:
+                return result
+
+        return -1.0
+
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        adj = defaultdict(list)
+
+        for (u, v), val in zip(equations, values):
+            adj[u].append((v, val))
+            adj[v].append((u, 1.0 / val))
+
+        result = []
+        for src, dst in queries:
+            if src not in adj or dst not in adj:
+                result.append(-1.0)
+            else:
+                visited = set()
+                res = self.dfs(adj, src, dst, visited, 1.0)
+                result.append(res)
+
+        return result
+               
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    double dfs(unordered_map<string, vector<pair<string, double>>>& adj, string src, string dst, unordered_set<string>& visited, double product) {
+        if (visited.count(src)) return -1.0;
+        if (src == dst) return product;
+
+        visited.insert(src);
+
+        for (auto& [neighbor, value] : adj[src]) {
+            double result = dfs(adj, neighbor, dst, visited, product * value);
+            if (result != -1.0)
+                return result;
+        }
+
+        return -1.0;
+    }
+
+    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
+        unordered_map<string, vector<pair<string, double>>> adj;
+
+        for (int i = 0; i < equations.size(); ++i) {
+            string u = equations[i][0];
+            string v = equations[i][1];
+            double val = values[i];
+            adj[u].emplace_back(v, val);
+            adj[v].emplace_back(u, 1.0 / val);
+        }
+
+        vector<double> result;
+        for (auto& q : queries) {
+            string src = q[0], dst = q[1];
+            if (!adj.count(src) || !adj.count(dst)) {
+                result.push_back(-1.0);
+            } else {
+                unordered_set<string> visited;
+                result.push_back(dfs(adj, src, dst, visited, 1.0));
+            }
+        }
+
+        return result;
+    }
+};
+
+
+
+
+
+##############-Java-####################
+
+class Solution {
+    public double dfs(Map<String, List<Pair>> adj, String src, String dst, Set<String> visited, double product) {
+        if (visited.contains(src)) return -1.0;
+        if (src.equals(dst)) return product;
+
+        visited.add(src);
+
+        for (Pair neighbor : adj.get(src)) {
+            double result = dfs(adj, neighbor.node, dst, visited, product * neighbor.value);
+            if (result != -1.0)
+                return result;
+        }
+
+        return -1.0;
+    }
+
+    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        Map<String, List<Pair>> adj = new HashMap<>();
+
+        for (int i = 0; i < equations.size(); i++) {
+            String u = equations.get(i).get(0);
+            String v = equations.get(i).get(1);
+            double val = values[i];
+
+            adj.putIfAbsent(u, new ArrayList<>());
+            adj.putIfAbsent(v, new ArrayList<>());
+            adj.get(u).add(new Pair(v, val));
+            adj.get(v).add(new Pair(u, 1.0 / val));
+        }
+
+        double[] result = new double[queries.size()];
+        for (int i = 0; i < queries.size(); i++) {
+            String src = queries.get(i).get(0);
+            String dst = queries.get(i).get(1);
+            if (!adj.containsKey(src) || !adj.containsKey(dst)) {
+                result[i] = -1.0;
+            } else {
+                Set<String> visited = new HashSet<>();
+                result[i] = dfs(adj, src, dst, visited, 1.0);
+            }
+        }
+
+        return result;
+    }
+
+    class Pair {
+        String node;
+        double value;
+
+        Pair(String node, double value) {
+            this.node = node;
+            this.value = value;
+        }
+    }
+}
+
+
+
