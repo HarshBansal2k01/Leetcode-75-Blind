@@ -1,0 +1,170 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/nearest-exit-from-entrance-in-maze/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(M*N)
+Space Complexity :- O(M*N)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
+        n = len(maze)
+        m = len(maze[0])
+
+        dx = [-1, 0, 1, 0]
+        dy = [0, 1, 0, -1]
+
+        q = deque()
+        q.append((entrance[0], entrance[1]))
+        maze[entrance[0]][entrance[1]] = '+'  # mark as visited
+
+        level = 0
+
+        while q:
+            size = len(q)
+
+            for _ in range(size):
+                i, j = q.popleft()
+
+                # check for valid exit (must not be the entrance itself)
+                if [i, j] != entrance and (i == 0 or j == 0 or i == n - 1 or j == m - 1):
+                    return level
+
+                for k in range(4):
+                    new_i = i + dx[k]
+                    new_j = j + dy[k]
+
+                    if 0 <= new_i < n and 0 <= new_j < m and maze[new_i][new_j] == '.':
+                        maze[new_i][new_j] = '+'  # mark visited
+                        q.append((new_i, new_j))
+
+            level += 1
+
+        return -1
+
+ 
+##############-C++-####################
+
+class Solution
+{
+    public:
+        int nearestExit(vector<vector < char>> &grid, vector< int > &entrance)
+        {
+
+            int n = grid.size();
+
+            int m = grid[0].size();
+
+            vector<int> dx = { -1,
+                0,
+                1,
+                0
+            };
+
+            vector<int> dy = { 0,
+                1,
+                0,
+                -1
+            };
+
+            queue<pair<int, int>> q;
+
+            q.push({ entrance[0],
+                entrance[1] });
+
+            int level = 0;
+
+            grid[entrance[0]][entrance[1]] = '+';
+
+            while (!q.empty())
+            {
+                int size = q.size();
+
+                while (size--)
+                {
+                    auto curr = q.front();
+
+                    q.pop();
+
+                    int i = curr.first;
+
+                    int j = curr.second;
+
+                    if (!(i == entrance[0] && j == entrance[1]) && (i == 0 || j == 0 || i == n - 1 || j == m - 1))
+                    {
+                        return level;
+                    }
+
+                    for (int k = 0; k < 4; k++)
+                    {
+                        int new_i = i + dx[k];
+
+                        int new_j = j + dy[k];
+
+                        if (new_i >= 0 && new_i < n && new_j >= 0 && new_j < m && grid[new_i][new_j] != '+')
+                        {
+                            grid[new_i][new_j] = '+';
+
+                            q.push({ new_i,
+                                new_j });
+                        }
+                    }
+                }
+
+                level++;
+            }
+
+            return -1;
+        }
+};
+
+
+
+##############-Java-####################
+
+class Solution {
+    public int nearestExit(char[][] maze, int[] entrance) {
+        int n = maze.length;
+        int m = maze[0].length;
+
+        int[] dx = {-1, 0, 1, 0};
+        int[] dy = {0, 1, 0, -1};
+
+        Queue<int[]> q = new LinkedList<>();
+        q.offer(new int[]{entrance[0], entrance[1]});
+        maze[entrance[0]][entrance[1]] = '+';  // mark as visited
+
+        int level = 0;
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+
+            for (int s = 0; s < size; s++) {
+                int[] pos = q.poll();
+                int i = pos[0], j = pos[1];
+
+                // Check for valid exit (must not be the entrance itself)
+                if ((i != entrance[0] || j != entrance[1]) &&
+                    (i == 0 || j == 0 || i == n - 1 || j == m - 1)) {
+                    return level;
+                }
+
+                for (int k = 0; k < 4; k++) {
+                    int new_i = i + dx[k];
+                    int new_j = j + dy[k];
+
+                    if (new_i >= 0 && new_i < n && new_j >= 0 && new_j < m && maze[new_i][new_j] == '.') {
+                        maze[new_i][new_j] = '+';  // mark as visited
+                        q.offer(new int[]{new_i, new_j});
+                    }
+                }
+            }
+
+            level++;
+        }
+
+        return -1;
+    }
+}
+
