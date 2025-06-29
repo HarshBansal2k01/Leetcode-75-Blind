@@ -1,0 +1,146 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/rotting-oranges/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(M*N)
+Space Complexity :- O(M*N)
+
+
+##############-PYTHON-####################
+
+
+class Solution:
+    def orangesRotting(self, grid: list[list[int]]) -> int:
+        n = len(grid)
+        m = len(grid[0])
+        q = deque()
+
+        # Enqueue all initially rotten oranges
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == 2:
+                    q.append(((i, j), 0))
+
+        time = 0
+        drow = [-1, 0, 1, 0]
+        dcol = [0, 1, 0, -1]
+
+        # BFS
+        while q:
+            (row, col), tm = q.popleft()
+            time = max(time, tm)
+
+            for i in range(4):
+                nrow = row + drow[i]
+                ncol = col + dcol[i]
+
+                if 0 <= nrow < n and 0 <= ncol < m and grid[nrow][ncol] == 1:
+                    grid[nrow][ncol] = 2
+                    q.append(((nrow, ncol), tm + 1))
+
+        # Check if any fresh orange is left
+        for row in grid:
+            if 1 in row:
+                return -1
+
+        return time
+
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        
+        int n = grid.size();
+        int m = grid[0].size();
+        queue<pair<pair<int,int>,int>>q;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==2){
+                    q.push({{i,j},0});
+                }
+            }
+        }
+        int time=0;
+        int drow[] = {-1,0,+1,0};
+        int dcol[] = {0,1,0,-1};
+        while(!q.empty()){
+            auto val = q.front();
+            q.pop();
+            int row = val.first.first;
+            int col = val.first.second;
+            int tm = val.second;
+            time = max(time,tm);
+
+            for(int i=0;i<4;i++){
+                int nrow = row+drow[i];
+                int ncol = col+dcol[i];
+
+                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && grid[nrow][ncol]==1){
+                    grid[nrow][ncol]=2;
+                    q.push({{nrow,ncol},tm+1});
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j] == 1)return -1;
+            }
+        }
+        return time;
+    }
+};
+
+
+
+##############-Java-####################
+
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+
+        Queue<int[]> q = new LinkedList<>();
+
+        // Enqueue all initially rotten oranges
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 2) {
+                    q.offer(new int[]{i, j, 0});
+                }
+            }
+        }
+
+        int time = 0;
+        int[] drow = {-1, 0, 1, 0};
+        int[] dcol = {0, 1, 0, -1};
+
+        // BFS traversal
+        while (!q.isEmpty()) {
+            int[] curr = q.poll();
+            int row = curr[0], col = curr[1], tm = curr[2];
+            time = Math.max(time, tm);
+
+            for (int i = 0; i < 4; i++) {
+                int nrow = row + drow[i];
+                int ncol = col + dcol[i];
+
+                if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && grid[nrow][ncol] == 1) {
+                    grid[nrow][ncol] = 2;
+                    q.offer(new int[]{nrow, ncol, tm + 1});
+                }
+            }
+        }
+
+        // Check for remaining fresh oranges
+        for (int[] row : grid) {
+            for (int cell : row) {
+                if (cell == 1)
+                    return -1;
+            }
+        }
+
+        return time;
+    }
+}
