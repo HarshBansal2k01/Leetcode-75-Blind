@@ -1,0 +1,58 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/kth-largest-element-in-an-array/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(NlogK)
+Space Complexity :- O(K)
+
+
+##############-PYTHON-####################
+
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        min_heap = []
+
+        for num in nums:
+            heapq.heappush(min_heap,num)
+            if len(min_heap)>k:
+                heapq.heappop(min_heap)
+        
+        return min_heap[0]
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        priority_queue<int, vector<int>, greater<int>> minHeap;
+
+        for (int num : nums) {
+            minHeap.push(num);
+            if (minHeap.size() > k) {
+                minHeap.pop();
+            }
+        }
+
+        return minHeap.top();
+    }
+};
+
+
+##############-Java-####################
+
+import java.util.PriorityQueue;
+
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+
+        for (int num : nums) {
+            minHeap.offer(num);
+            if (minHeap.size() > k) {
+                minHeap.poll();
+            }
+        }
+
+        return minHeap.peek();
+    }
+}
