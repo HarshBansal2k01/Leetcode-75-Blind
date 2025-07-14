@@ -1,0 +1,113 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/maximum-subsequence-score/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N log N)
+Space Complexity :- O(n)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def maxScore(self, nums1: List[int], nums2: List[int], k: int) -> int:
+        n = len(nums1)
+        paired_values = list(zip(nums1, nums2))
+        paired_values.sort(key=lambda pair: pair[1], reverse=True)
+
+        min_heap = []
+        current_sum = 0
+
+        for i in range(k):
+            current_sum += paired_values[i][0]
+            heapq.heappush(min_heap, paired_values[i][0])
+
+        max_score = current_sum * paired_values[k - 1][1]
+
+        for i in range(k, n):
+            smallest_in_heap = heapq.heappop(min_heap)
+            current_sum += paired_values[i][0] - smallest_in_heap
+            heapq.heappush(min_heap, paired_values[i][0])
+            current_score = current_sum * paired_values[i][1]
+            max_score = max(max_score, current_score)
+
+        return max_score
+                        
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    long long maxScore(vector<int>& nums1, vector<int>& nums2, int k) {
+        int n = nums1.size();
+
+        vector<pair<int, int>> valuePairs;
+        for (int i = 0; i < n; ++i) {
+            valuePairs.push_back({nums1[i], nums2[i]});
+        }
+
+        sort(valuePairs.begin(), valuePairs.end(), [](const auto& a, const auto& b) {
+            return a.second > b.second;
+        });
+
+        priority_queue<int, vector<int>, greater<int>> minHeap; // Min-heap for smallest elements in sum
+        long long sumOfSelected = 0;
+
+        for (int i = 0; i < k; ++i) {
+            sumOfSelected += valuePairs[i].first;
+            minHeap.push(valuePairs[i].first);
+        }
+
+        long long maxScore = sumOfSelected * valuePairs[k - 1].second;
+
+        for (int i = k; i < n; ++i) {
+            int smallest = minHeap.top();
+            minHeap.pop();
+
+            sumOfSelected = sumOfSelected - smallest + valuePairs[i].first;
+            minHeap.push(valuePairs[i].first);
+
+            long long currentScore = sumOfSelected * valuePairs[i].second;
+            maxScore = max(maxScore, currentScore);
+        }
+
+        return maxScore;
+    }
+};
+
+
+
+##############-Java-####################
+
+class Solution {
+    public long maxScore(int[] nums1, int[] nums2, int k) {
+        int n = nums1.length;
+        int[][] paired = new int[n][2];
+
+        for (int i = 0; i < n; i++) {
+            paired[i][0] = nums1[i];
+            paired[i][1] = nums2[i];
+        }
+
+        Arrays.sort(paired, (a, b) -> b[1] - a[1]);
+
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        long currentSum = 0;
+
+        for (int i = 0; i < k; i++) {
+            currentSum += paired[i][0];
+            minHeap.add(paired[i][0]);
+        }
+
+        long maxScore = currentSum * paired[k - 1][1];
+
+        for (int i = k; i < n; i++) {
+            currentSum += paired[i][0] - minHeap.poll();
+            minHeap.add(paired[i][0]);
+            long currentScore = currentSum * (long) paired[i][1];
+            maxScore = Math.max(maxScore, currentScore);
+        }
+
+        return maxScore;
+    }
+}
+
