@@ -1,0 +1,118 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/total-cost-to-hire-k-workers/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(K*log*candidates)
+Space Complexity :- O(candidates)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
+        n = len(costs)
+        left_ptr, right_ptr = 0, n - 1
+        left_heap, right_heap = [], []
+        total_cost = 0
+        hires = 0
+
+        while hires < k:
+            while len(left_heap) < candidates and left_ptr <= right_ptr:
+                heapq.heappush(left_heap, costs[left_ptr])
+                left_ptr += 1
+
+            while len(right_heap) < candidates and right_ptr >= left_ptr:
+                heapq.heappush(right_heap, costs[right_ptr])
+                right_ptr -= 1
+
+            left_min = left_heap[0] if left_heap else float('inf')
+            right_min = right_heap[0] if right_heap else float('inf')
+
+            if left_min <= right_min:
+                total_cost += heapq.heappop(left_heap)
+            else:
+                total_cost += heapq.heappop(right_heap)
+
+            hires += 1
+
+        return total_cost
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    long long totalCost(vector<int>& costs, int k, int candidates) {
+        int n = costs.size();
+        int left_ptr = 0, right_ptr = n - 1;
+        priority_queue<int, vector<int>, greater<int>> left_heap, right_heap;
+        long long total_cost = 0;
+        int hires = 0;
+
+        while (hires < k) {
+            while (left_heap.size() < candidates && left_ptr <= right_ptr) {
+                left_heap.push(costs[left_ptr]);
+                left_ptr++;
+            }
+
+            while (right_heap.size() < candidates && right_ptr >= left_ptr) {
+                right_heap.push(costs[right_ptr]);
+                right_ptr--;
+            }
+
+            int left_min = left_heap.empty() ? INT_MAX : left_heap.top();
+            int right_min = right_heap.empty() ? INT_MAX : right_heap.top();
+
+            if (left_min <= right_min) {
+                total_cost += left_heap.top();
+                left_heap.pop();
+            } else {
+                total_cost += right_heap.top();
+                right_heap.pop();
+            }
+
+            hires++;
+        }
+
+        return total_cost;
+    }
+};
+
+
+##############-Java-####################
+
+class Solution {
+    public long totalCost(int[] costs, int k, int candidates) {
+        int n = costs.length;
+        int left_ptr = 0, right_ptr = n - 1;
+        PriorityQueue<Integer> left_heap = new PriorityQueue<>();
+        PriorityQueue<Integer> right_heap = new PriorityQueue<>();
+        long total_cost = 0;
+        int hires = 0;
+
+        while (hires < k) {
+            while (left_heap.size() < candidates && left_ptr <= right_ptr) {
+                left_heap.offer(costs[left_ptr]);
+                left_ptr++;
+            }
+
+            while (right_heap.size() < candidates && right_ptr >= left_ptr) {
+                right_heap.offer(costs[right_ptr]);
+                right_ptr--;
+            }
+
+            int left_min = left_heap.isEmpty() ? Integer.MAX_VALUE : left_heap.peek();
+            int right_min = right_heap.isEmpty() ? Integer.MAX_VALUE : right_heap.peek();
+
+            if (left_min <= right_min) {
+                total_cost += left_heap.poll();
+            } else {
+                total_cost += right_heap.poll();
+            }
+
+            hires++;
+        }
+
+        return total_cost;
+    }
+}
+
