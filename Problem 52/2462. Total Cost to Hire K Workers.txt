@@ -1,4 +1,4 @@
-Link to Youtube Video :- 
+Link to Youtube Video :- https://www.youtube.com/watch?v=JRlBbxH4pAA
 Link to Leetcode problem :- https://leetcode.com/problems/total-cost-to-hire-k-workers/?envType=study-plan-v2&envId=leetcode-75
 
 Time Complexity :- O(K*log*candidates)
