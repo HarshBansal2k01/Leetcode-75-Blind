@@ -1,0 +1,74 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/guess-number-higher-or-lower/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(log*N)
+Space Complexity :- O(1)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def guessNumber(self, n: int) -> int:
+        i,j = 1,n
+
+        while i<=j:
+            mid = i + (j-i)//2
+            if guess(mid) == 0:
+                return mid
+            elif guess(mid)== -1:
+                j = mid-1
+            else:
+                i = mid + 1
+        
+        return 0
+
+ 
+##############-C++-####################
+
+class Solution
+{
+    public:
+        int guessNumber(int n)
+        {
+
+            int i = 1, j = n;
+
+            while (i <= j)
+            {
+                int mid = i + (j - i) / 2;
+                if (guess(mid) == 0) return mid;
+
+                else if (guess(mid) == -1)
+                {
+                    j = mid - 1;
+                }
+                else
+                {
+                    i = mid + 1;
+                }
+            }
+            return 0;
+        }
+};
+
+##############-Java-####################
+
+public class Solution extends GuessGame {
+    public int guessNumber(int n) {
+        int i = 1, j = n;
+
+        while (i <= j) {
+            int mid = i + (j - i) / 2;
+            int res = guess(mid);
+
+            if (res == 0)
+                return mid;
+            else if (res == -1)
+                j = mid - 1;
+            else
+                i = mid + 1;
+        }
+
+        return 0; // Should never be reached
+    }
+}
