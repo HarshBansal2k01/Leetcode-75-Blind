@@ -1,0 +1,102 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/successful-pairs-of-spells-and-potions/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N*log*M)
+Space Complexity :- O(N)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
+        v=[]
+        n = len(spells)
+        potions.sort()
+
+        for i in range(n):
+            sz = len(potions)
+            l=0
+            h=sz-1
+            val = spells[i]
+            ans=0
+
+            while l<=h:
+                mid = l+(h-l)//2
+
+                pot = potions[mid]
+                if(pot*val >= success):
+                    ans = max(ans,sz-mid)
+                    h=mid-1
+                else:
+                    l=mid+1
+            
+            v.append(ans)
+
+        return v
+            
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
+        vector<int> result;
+        sort(potions.begin(), potions.end());
+        int m = potions.size();
+
+        for (int spell : spells) {
+            int l = 0, h = m - 1;
+            int ans = 0;
+
+            while (l <= h) {
+                int mid = l + (h - l) / 2;
+                long long product = 1LL * spell * potions[mid];
+
+                if (product >= success) {
+                    ans = max(ans, m - mid);
+                    h = mid - 1;
+                } else {
+                    l = mid + 1;
+                }
+            }
+
+            result.push_back(ans);
+        }
+
+        return result;
+    }
+};
+
+
+##############-Java-####################
+
+class Solution {
+    public int[] successfulPairs(int[] spells, int[] potions, long success) {
+        Arrays.sort(potions);
+        int[] result = new int[spells.length];
+        int m = potions.length;
+
+        for (int i = 0; i < spells.length; i++) {
+            int spell = spells[i];
+            int l = 0, h = m - 1;
+            int ans = 0;
+
+            while (l <= h) {
+                int mid = l + (h - l) / 2;
+                long product = (long) spell * potions[mid];
+
+                if (product >= success) {
+                    ans = Math.max(ans, m - mid);
+                    h = mid - 1;
+                } else {
+                    l = mid + 1;
+                }
+            }
+
+            result[i] = ans;
+        }
+
+        return result;
+    }
+}
