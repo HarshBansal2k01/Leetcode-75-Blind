@@ -1,0 +1,123 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(4ⁿ)
+Space Complexity :- O(4ⁿ)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def solve(self, digits, output, res, index, mapping):
+        if index >= len(digits):
+            res.append(output)
+            return
+
+        val = int(digits[index])
+        letters = mapping[val]
+
+        for char in letters:
+            self.solve(digits, output + char, res, index + 1, mapping)
+
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+
+        mapping = ["", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]
+        res = []
+        self.solve(digits, "", res, 0, mapping)
+        return res
+
+ 
+##############-C++-####################
+
+class Solution
+{
+    public:
+
+        void solve(string digits, string &output, vector<string> &v, int ind, string mpp[])
+        {
+
+            if (ind >= digits.length())
+            {
+                v.push_back(output);
+                return;
+            }
+
+            int val = digits[ind] - '0';
+            string range = mpp[val];
+
+            for (int i = 0; i < range.length(); i++)
+            {
+                output.push_back(range[i]);
+
+                solve(digits, output, v, ind + 1, mpp);
+
+                output.pop_back();
+            }
+        }
+
+    vector<string> letterCombinations(string digits)
+    {
+        vector<string> ans;
+        if (digits.size() == 0) return ans;
+
+        string output = "";
+        string mapp[] = { "",
+            "",
+            "abc",
+            "def",
+            "ghi",
+            "jkl",
+            "mno",
+            "pqrs",
+            "tuv",
+            "wxyz" };
+        solve(digits, output, ans, 0, mapp);
+
+        return ans;
+    }
+};
+
+
+##############-Java-####################
+
+class Solution {
+    public void solve(String digits, StringBuilder output, List<String> res, int index, String[] mapping) {
+        if (index >= digits.length()) {
+            res.add(output.toString());
+            return;
+        }
+
+        int digit = digits.charAt(index) - '0';
+        String letters = mapping[digit];
+
+        for (int i = 0; i < letters.length(); i++) {
+            output.append(letters.charAt(i)); // do
+            solve(digits, output, res, index + 1, mapping);
+            output.deleteCharAt(output.length() - 1); // undo (backtrack)
+        }
+    }
+
+    public List<String> letterCombinations(String digits) {
+        List<String> res = new ArrayList<>();
+        if (digits == null || digits.length() == 0) return res;
+
+        String[] mapping = {
+            "",     
+            "",     
+            "abc",  
+            "def",  
+            "ghi",  
+            "jkl",  
+            "mno",  
+            "pqrs", 
+            "tuv",  
+            "wxyz"  
+        };
+
+        solve(digits, new StringBuilder(), res, 0, mapping);
+        return res;
+    }
+}
+
