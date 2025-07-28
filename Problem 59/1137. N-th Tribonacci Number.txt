@@ -1,0 +1,63 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/n-th-tribonacci-number/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(N)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def fun(self, n, dp):
+        if n <= 1:
+            return n
+        if n == 2:
+            return 1
+        if dp[n] != -1:
+            return dp[n]
+        dp[n] = self.fun(n - 1, dp) + self.fun(n - 2, dp) + self.fun(n - 3, dp)
+        return dp[n]
+    def tribonacci(self, n: int) -> int:
+        dp = [-1] * (n + 1)
+        return self.fun(n, dp)
+
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int fun(int n, vector<int>& dp) {
+        if (n <= 1) return n;
+        if (n == 2) return 1;
+        if (dp[n] != -1) return dp[n];
+
+        dp[n] = fun(n - 1, dp) + fun(n - 2, dp) + fun(n - 3, dp);
+        return dp[n];
+    }
+
+    int tribonacci(int n) {
+        vector<int> dp(n + 1, -1);
+        return fun(n, dp);
+    }
+};
+
+
+##############-Java-####################
+
+class Solution {
+    public int fun(int n, int[] dp) {
+        if (n <= 1) return n;
+        if (n == 2) return 1;
+        if (dp[n] != -1) return dp[n];
+
+        dp[n] = fun(n - 1, dp) + fun(n - 2, dp) + fun(n - 3, dp);
+        return dp[n];
+    }
+
+    public int tribonacci(int n) {
+        int[] dp = new int[n + 1];
+        Arrays.fill(dp, -1);
+        return fun(n, dp);
+    }
+}
