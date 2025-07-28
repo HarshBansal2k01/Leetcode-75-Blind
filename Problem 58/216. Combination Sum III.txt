@@ -1,0 +1,62 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/combination-sum-iii/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(2^9)
+Space Complexity :- O(k)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def fun(self,arr,ind,s,ans,temp,k,n):
+        if ind == s:
+            if n==0 and len(temp)==k:
+                ans.append(temp[:])
+            return
+        
+        if arr[ind] <=n:
+            temp.append(arr[ind])
+            self.fun(arr,ind+1,s,ans,temp,k,n-arr[ind])
+            temp.pop()
+
+        self.fun(arr,ind+1,s,ans,temp,k,n)
+
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        arr=[1,2,3,4,5,6,7,8,9]
+        ans=[]
+        self.fun(arr,0,len(arr),ans,[],k,n)
+        return ans
+
+ 
+##############-C++-####################
+
+import java.util.*;
+
+class Solution {
+    public void rec(int[] arr, int ind, int s, List<List<Integer>> ans,
+                    List<Integer> temp, int k, int n) {
+        if (ind == s) {
+            if (n == 0 && temp.size() == k) {
+                ans.add(new ArrayList<>(temp));
+            }
+            return;
+        }
+
+        if (n >= arr[ind]) {
+            temp.add(arr[ind]);
+            rec(arr, ind + 1, s, ans, temp, k, n - arr[ind]);
+            temp.remove(temp.size() - 1);
+        }
+
+        rec(arr, ind + 1, s, ans, temp, k, n);
+    }
+
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        int[] arr = {1,2,3,4,5,6,7,8,9};
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
+        int s = 9;
+        rec(arr, 0, s, ans, temp, k, n);
+        return ans;
+    }
+}
