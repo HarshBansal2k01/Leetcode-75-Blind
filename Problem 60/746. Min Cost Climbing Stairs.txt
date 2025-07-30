@@ -1,0 +1,80 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/min-cost-climbing-stairs/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(N)
+
+
+##############-PYTHON-####################
+
+class Solution:
+
+    def ans(self,cost,dp,ind):
+        if ind == 0:
+            return cost[0]
+        if ind==1:
+            return cost[1]
+
+        if dp[ind]!= -1:
+            return dp[ind]
+
+        step1 = cost[ind] + self.ans(cost,dp,ind-1)
+        step2 = cost[ind] + self.ans(cost,dp,ind-2)
+
+        dp[ind] = min(step1,step2)
+        return dp[ind]
+
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        n = len(cost)
+        dp = [-1]*n
+        return min(self.ans(cost,dp,n-1),self.ans(cost,dp,n-2))
+
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int solve(vector<int>& cost, vector<int>& dp, int ind) {
+        if (ind == 0) return cost[0];
+        if (ind == 1) return cost[1];
+
+        if (dp[ind] != -1) return dp[ind];
+
+        int step1 = cost[ind] + solve(cost, dp, ind - 1);
+        int step2 = cost[ind] + solve(cost, dp, ind - 2);
+
+        return dp[ind] = min(step1, step2);
+    }
+
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n = cost.size();
+        vector<int> dp(n, -1);
+        return min(solve(cost, dp, n - 1), solve(cost, dp, n - 2));
+    }
+};
+
+
+
+##############-Java-####################
+
+class Solution {
+    public int solve(int[] cost, int[] dp, int ind) {
+        if (ind == 0) return cost[0];
+        if (ind == 1) return cost[1];
+
+        if (dp[ind] != -1) return dp[ind];
+
+        int step1 = cost[ind] + solve(cost, dp, ind - 1);
+        int step2 = cost[ind] + solve(cost, dp, ind - 2);
+
+        return dp[ind] = Math.min(step1, step2);
+    }
+
+    public int minCostClimbingStairs(int[] cost) {
+        int n = cost.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
+        return Math.min(solve(cost, dp, n - 1), solve(cost, dp, n - 2));
+    }
+}

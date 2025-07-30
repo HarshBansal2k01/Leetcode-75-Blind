@@ -1,0 +1,81 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/min-cost-climbing-stairs/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(N)
+
+
+##############-PYTHON-####################
+
+class Solution:
+
+    def func(self,ind,nums,dp,n):
+        if ind==0:
+            return nums[0]
+        if ind<0:
+            return 0
+        
+        if dp[ind] != -1:
+            return dp[ind]
+        
+        take = nums[ind] + self.func(ind-2,nums,dp,n)
+        ntake = 0 + self.func(ind-1,nums,dp,n)
+
+        dp[ind] = max(take,ntake)
+        return dp[ind]
+    def rob(self, nums: List[int]) -> int:
+        n=len(nums)
+        dp=[-1]*(n+1)
+
+        return self.func(n-1,nums,dp,n)
+
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int func(int ind, vector<int>& nums, vector<int>& dp) {
+        if (ind == 0) return nums[0];
+        if (ind < 0) return 0;
+        if (dp[ind] != -1) return dp[ind];
+
+        int take = nums[ind] + func(ind - 2, nums, dp);
+        int ntake = func(ind - 1, nums, dp);
+
+        dp[ind] = max(take, ntake);
+        return dp[ind];
+    }
+
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> dp(n + 1, -1);
+        return func(n - 1, nums, dp);
+    }
+};
+
+
+
+##############-Java-####################
+
+class Solution {
+    public int func(int ind, int[] nums, int[] dp) {
+        if (ind == 0) return nums[0];
+        if (ind < 0) return 0;
+        if (dp[ind] != -1) return dp[ind];
+
+        int take = nums[ind] + func(ind - 2, nums, dp);
+        int ntake = func(ind - 1, nums, dp);
+
+        dp[ind] = Math.max(take, ntake);
+        return dp[ind];
+    }
+
+    public int rob(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[n + 1];
+        Arrays.fill(dp, -1);
+        return func(n - 1, nums, dp);
+    }
+}
+

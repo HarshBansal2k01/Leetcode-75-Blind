@@ -1,0 +1,84 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/domino-and-tromino-tiling/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(N)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def __init__(self):
+        self.MOD = 10**9 + 7
+        self.dp = [-1] * 1001
+
+    def count_ways(self, tiles):
+        if tiles == 1 or tiles == 2:
+            return tiles
+        if tiles == 3:
+            return 5
+
+        if self.dp[tiles] != -1:
+            return self.dp[tiles]
+
+        self.dp[tiles] = (2 * self.count_ways(tiles - 1) % self.MOD + self.count_ways(tiles - 3) % self.MOD) % self.MOD
+        return self.dp[tiles]
+
+    def numTilings(self, n: int) -> int:
+        return self.count_ways(n)
+
+
+
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int MOD = 1000000007;
+    int cache[1001];
+
+    int countTilings(int length) {
+        if (length == 1 || length == 2)
+            return length;
+        if (length == 3)
+            return 5;
+
+        if (cache[length] != -1)
+            return cache[length];
+
+        return cache[length] = (2 * countTilings(length - 1) % MOD + countTilings(length - 3) % MOD) % MOD;
+    }
+
+    int numTilings(int n) {
+        memset(cache, -1, sizeof(cache));
+        return countTilings(n);
+    }
+};
+
+
+
+
+##############-Java-####################
+
+class Solution {
+    int MOD = 1000000007;
+    int[] memo = new int[1001];
+
+    int countTilings(int length) {
+        if (length == 1 || length == 2)
+            return length;
+        if (length == 3)
+            return 5;
+
+        if (memo[length] != -1)
+            return memo[length];
+
+        return memo[length] = (int)(((2L * countTilings(length - 1)) % MOD + countTilings(length - 3)) % MOD);
+    }
+
+    public int numTilings(int n) {
+        Arrays.fill(memo, -1);
+        return countTilings(n);
+    }
+}
+
