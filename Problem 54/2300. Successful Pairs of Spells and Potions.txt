@@ -1,4 +1,4 @@
-Link to Youtube Video :- 
+Link to Youtube Video :- https://www.youtube.com/watch?v=o6o96-E_l8Q
 Link to Leetcode problem :- https://leetcode.com/problems/successful-pairs-of-spells-and-potions/description/?envType=study-plan-v2&envId=leetcode-75
 
 Time Complexity :- O(N*log*M)
