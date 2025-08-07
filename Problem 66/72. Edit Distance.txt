@@ -1,0 +1,180 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/edit-distance/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N*M)
+Space Complexity :- O(N*M)
+
+
+##############-PYTHON Memoization-####################
+
+class Solution:
+    def computeEditDistance(self, word1, word2, i, j, memo):
+        if i < 0:
+            return j + 1
+        if j < 0:
+            return i + 1
+
+        if memo[i][j] != -1:
+            return memo[i][j]
+
+        if word1[i] == word2[j]:
+            memo[i][j] = self.computeEditDistance(word1, word2, i - 1, j - 1, memo)
+        else:
+            insert_op = self.computeEditDistance(word1, word2, i, j - 1, memo)
+            delete_op = self.computeEditDistance(word1, word2, i - 1, j, memo)
+            replace_op = self.computeEditDistance(word1, word2, i - 1, j - 1, memo)
+            memo[i][j] = 1 + min(replace_op, min(delete_op, insert_op))
+
+        return memo[i][j]
+
+    def minDistance(self, word1: str, word2: str) -> int:
+        n = len(word1)
+        m = len(word2)
+
+        memo = [[-1 for _ in range(m)] for _ in range(n)]
+
+        return self.computeEditDistance(word1, word2, n - 1, m - 1, memo)
+
+
+##############-PYTHON Tabular-####################
+
+class Solution:
+    def minDistance(self, word1: str, word2: str) -> int:
+        n = len(word1)
+        m = len(word2)
+
+        dp = [[0 for _ in range(m + 1)] for _ in range(n + 1)]
+
+        for i in range(n + 1):
+            dp[i][0] = i  # delete all characters from word1
+        for j in range(m + 1):
+            dp[0][j] = j  # insert all characters of word2
+
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                if word1[i - 1] == word2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]  
+                else:
+                    insert_op = dp[i][j - 1]
+                    delete_op = dp[i - 1][j]
+                    replace_op = dp[i - 1][j - 1]
+                    dp[i][j] = 1 + min(insert_op, delete_op, replace_op)
+
+        return dp[n][m]
+
+ 
+##############-C++ Memoization-####################
+
+class Solution {
+public:
+    int computeEditDistance(string& word1, string& word2, int i, int j, vector<vector<int>>& memo) {
+        if (i < 0) return j + 1;
+        if (j < 0) return i + 1;
+
+        if (memo[i][j] != -1) return memo[i][j];
+
+        if (word1[i] == word2[j]) {
+            memo[i][j] = computeEditDistance(word1, word2, i - 1, j - 1, memo);
+        } else {
+            int insert_op = computeEditDistance(word1, word2, i, j - 1, memo);
+            int delete_op = computeEditDistance(word1, word2, i - 1, j, memo);
+            int replace_op = computeEditDistance(word1, word2, i - 1, j - 1, memo);
+            memo[i][j] = 1 + min({insert_op, delete_op, replace_op});
+        }
+
+        return memo[i][j];
+    }
+
+    int minDistance(string word1, string word2) {
+        int n = word1.length();
+        int m = word2.length();
+        vector<vector<int>> memo(n, vector<int>(m, -1));
+        return computeEditDistance(word1, word2, n - 1, m - 1, memo);
+    }
+};
+
+
+
+
+##############-C++ Tabular-####################
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices, int fee) {
+        int n = prices.size();
+        vector<vector<int>> dp(n + 1, vector<int>(2, 0));
+
+        for (int ind = n - 1; ind >= 0; ind--) {
+            for (int buy = 0; buy <= 1; buy++) {
+                if (buy == 1) {
+                    dp[ind][buy] = max(-prices[ind] - fee + dp[ind + 1][0], dp[ind + 1][1]);
+                } else {
+                    dp[ind][buy] = max(prices[ind] + dp[ind + 1][1], dp[ind + 1][0]);
+                }
+            }
+        }
+
+        return dp[0][1];
+    }
+};
+
+
+
+
+
+##############-Java Memoization-####################
+
+class Solution {
+    public int computeEditDistance(String word1, String word2, int i, int j, int[][] memo) {
+        if (i < 0) return j + 1;
+        if (j < 0) return i + 1;
+
+        if (memo[i][j] != -1) return memo[i][j];
+
+        if (word1.charAt(i) == word2.charAt(j)) {
+            memo[i][j] = computeEditDistance(word1, word2, i - 1, j - 1, memo);
+        } else {
+            int insert_op = computeEditDistance(word1, word2, i, j - 1, memo);
+            int delete_op = computeEditDistance(word1, word2, i - 1, j, memo);
+            int replace_op = computeEditDistance(word1, word2, i - 1, j - 1, memo);
+            memo[i][j] = 1 + Math.min(replace_op, Math.min(delete_op, insert_op));
+        }
+
+        return memo[i][j];
+    }
+
+    public int minDistance(String word1, String word2) {
+        int n = word1.length();
+        int m = word2.length();
+        int[][] memo = new int[n][m];
+        for (int[] row : memo) {
+            Arrays.fill(row, -1);
+        }
+        return computeEditDistance(word1, word2, n - 1, m - 1, memo);
+    }
+}
+
+
+
+
+
+##############-Java Tabular-####################
+
+class Solution {
+    public int maxProfit(int[] prices, int fee) {
+        int n = prices.length;
+        int[][] dp = new int[n + 1][2];
+
+        for (int ind = n - 1; ind >= 0; ind--) {
+            for (int buy = 0; buy <= 1; buy++) {
+                if (buy == 1) {
+                    dp[ind][buy] = Math.max(-prices[ind] - fee + dp[ind + 1][0], dp[ind + 1][1]);
+                } else {
+                    dp[ind][buy] = Math.max(prices[ind] + dp[ind + 1][1], dp[ind + 1][0]);
+                }
+            }
+        }
+
+        return dp[0][1];
+    }
+}
