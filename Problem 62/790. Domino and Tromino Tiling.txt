@@ -9,23 +9,24 @@ Space Complexity :- O(N)
 
 class Solution:
     def __init__(self):
-        self.MOD = 10**9 + 7
-        self.dp = [-1] * 1001
+        self.M = 10**9 + 7
+        self.t = [-1] * 1001
 
-    def count_ways(self, tiles):
-        if tiles == 1 or tiles == 2:
-            return tiles
-        if tiles == 3:
+    def solve(self, n):
+        if n == 1 or n == 2:
+            return n
+        if n == 3:
             return 5
-
-        if self.dp[tiles] != -1:
-            return self.dp[tiles]
-
-        self.dp[tiles] = (2 * self.count_ways(tiles - 1) % self.MOD + self.count_ways(tiles - 3) % self.MOD) % self.MOD
-        return self.dp[tiles]
+        
+        if self.t[n] != -1:
+            return self.t[n]
+        
+        self.t[n] = (2 * self.solve(n - 1) % self.M + self.solve(n - 3) % self.M) % self.M
+        return self.t[n]
 
     def numTilings(self, n: int) -> int:
-        return self.count_ways(n)
+        return self.solve(n)
+
 
 
 
@@ -34,24 +35,25 @@ class Solution:
 
 class Solution {
 public:
-    int MOD = 1000000007;
-    int cache[1001];
+    const int M = 1e9 + 7;
+    vector<int> t;
 
-    int countTilings(int length) {
-        if (length == 1 || length == 2)
-            return length;
-        if (length == 3)
-            return 5;
+    Solution() {
+        t.assign(1001, -1);
+    }
 
-        if (cache[length] != -1)
-            return cache[length];
+    int solve(int n) {
+        if (n == 1 || n == 2) return n;
+        if (n == 3) return 5;
 
-        return cache[length] = (2 * countTilings(length - 1) % MOD + countTilings(length - 3) % MOD) % MOD;
+        if (t[n] != -1) return t[n];
+
+        t[n] = (2LL * solve(n - 1) % M + solve(n - 3) % M) % M;
+        return t[n];
     }
 
     int numTilings(int n) {
-        memset(cache, -1, sizeof(cache));
-        return countTilings(n);
+        return solve(n);
     }
 };
 
@@ -61,24 +63,26 @@ public:
 ##############-Java-####################
 
 class Solution {
-    int MOD = 1000000007;
-    int[] memo = new int[1001];
+    private final int M = 1_000_000_007;
+    private int[] t;
 
-    int countTilings(int length) {
-        if (length == 1 || length == 2)
-            return length;
-        if (length == 3)
-            return 5;
+    public Solution() {
+        t = new int[1001];
+        Arrays.fill(t, -1);
+    }
 
-        if (memo[length] != -1)
-            return memo[length];
+    private int solve(int n) {
+        if (n == 1 || n == 2) return n;
+        if (n == 3) return 5;
 
-        return memo[length] = (int)(((2L * countTilings(length - 1)) % MOD + countTilings(length - 3)) % MOD);
+        if (t[n] != -1) return t[n];
+
+        t[n] = (int)((2L * solve(n - 1) % M + solve(n - 3) % M) % M);
+        return t[n];
     }
 
     public int numTilings(int n) {
-        Arrays.fill(memo, -1);
-        return countTilings(n);
+        return solve(n);
     }
 }
 
