@@ -1,5 +1,5 @@
-Link to Youtube Video :- 
-Link to Leetcode problem :- https://leetcode.com/problems/letter-combinations-of-a-phone-number/?envType=study-plan-v2&envId=leetcode-75
+Link to Youtube Video :- https://www.youtube.com/watch?v=StOY6qIcIsg
+Link to Leetcode problem :- https://leetcode.com/problems/koko-eating-bananas/description/?envType=study-plan-v2&envId=leetcode-75
 
 Time Complexity :- O(4^N)
 Space Complexity :- O(4^N)
