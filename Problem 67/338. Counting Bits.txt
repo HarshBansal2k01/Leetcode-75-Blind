@@ -1,0 +1,74 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/counting-bits/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(N+1)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def countBits(self, n: int) -> List[int]:
+        bits_count = [0] * (n + 1)
+        
+        if n == 0:
+            return bits_count
+        
+        bits_count[1] = 1
+        
+        for num in range(2, n + 1):
+            if num % 2 == 0:
+                bits_count[num] = bits_count[num // 2]
+            else:
+                bits_count[num] = bits_count[num // 2] + 1
+        
+        return bits_count
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    vector<int> countBits(int n) {
+        vector<int> bits_count(n + 1, 0);
+        
+        if (n == 0) return bits_count;
+        
+        bits_count[1] = 1;
+        
+        for (int num = 2; num <= n; num++) {
+            if (num % 2 == 0) {
+                bits_count[num] = bits_count[num / 2];
+            } else {
+                bits_count[num] = bits_count[num / 2] + 1;
+            }
+        }
+        
+        return bits_count;
+    }
+};
+
+
+
+
+##############-Java Memoization-####################
+
+class Solution {
+    public int[] countBits(int n) {
+        int[] bits_count = new int[n + 1];
+        
+        if (n == 0) return bits_count;
+        
+        bits_count[1] = 1;
+        
+        for (int num = 2; num <= n; num++) {
+            if (num % 2 == 0) {
+                bits_count[num] = bits_count[num / 2];
+            } else {
+                bits_count[num] = bits_count[num / 2] + 1;
+            }
+        }
+        
+        return bits_count;
+    }
+}
+
