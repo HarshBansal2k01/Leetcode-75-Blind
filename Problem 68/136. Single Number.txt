@@ -1,0 +1,49 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/single-number/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(1)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        xorr = 0
+
+        for val in nums:
+            xorr ^= val
+        
+        return xorr
+        
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int xorr = 0;
+        for (int val : nums) {
+            xorr ^= val;
+        }
+        return xorr;
+    }
+};
+
+
+
+
+
+##############-Java Memoization-####################
+
+class Solution {
+    public int singleNumber(int[] nums) {
+        int xorr = 0;
+        for (int val : nums) {
+            xorr ^= val;
+        }
+        return xorr;
+    }
+}
+
+
