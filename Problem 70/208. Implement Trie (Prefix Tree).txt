@@ -1,0 +1,195 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/implement-trie-prefix-tree/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(L+P) -> L = word length , P =  prefix length
+Space Complexity :- O(L*P) -> L = word length , P =  prefix length
+
+
+##############-PYTHON-####################
+
+    class Node:
+        def __init__(self):
+            self.links = [None] * 26
+            self.flag = False
+
+        def containsKey(self, ch):
+            return self.links[ord(ch) - ord('a')] is not None
+
+        def put(self, ch, node):
+            self.links[ord(ch) - ord('a')] = node
+
+        def get(self, ch):
+            return self.links[ord(ch) - ord('a')]
+
+        def setEnd(self):
+            self.flag = True
+
+        def isEnd(self):
+            return self.flag
+
+
+class Trie:
+    def __init__(self):
+        self.root = Node()
+
+    def insert(self, word: str) -> None:
+        node = self.root
+        for ch in word:
+            if not node.containsKey(ch):
+                node.put(ch, Node())
+            node = node.get(ch)
+        node.setEnd()
+
+    def search(self, word: str) -> bool:
+        node = self.root
+        for ch in word:
+            if not node.containsKey(ch):
+                return False
+            node = node.get(ch)
+        return node.isEnd()
+
+    def startsWith(self, prefix: str) -> bool:
+        node = self.root
+        for ch in prefix:
+            if not node.containsKey(ch):
+                return False
+            node = node.get(ch)
+        return True
+
+        
+ 
+##############-C++-####################
+
+class Node {
+private:
+    Node* links[26];
+    bool flag;
+
+public:
+    Node() {
+        for (int i = 0; i < 26; i++) {
+            links[i] = nullptr;
+        }
+        flag = false;
+    }
+
+    bool containsKey(char ch) {
+        return links[ch - 'a'] != nullptr;
+    }
+
+    void put(char ch, Node* node) {
+        links[ch - 'a'] = node;
+    }
+
+    Node* get(char ch) {
+        return links[ch - 'a'];
+    }
+
+    void setEnd() {
+        flag = true;
+    }
+
+    bool isEnd() {
+        return flag;
+    }
+};
+
+class Trie {
+private:
+    Node* root;
+
+public:
+    Trie() {
+        root = new Node();
+    }
+
+    void insert(string word) {
+        Node* node = root;
+        for (char ch : word) {
+            if (!node->containsKey(ch)) {
+                node->put(ch, new Node());
+            }
+            node = node->get(ch);
+        }
+        node->setEnd();
+    }
+
+    bool search(string word) {
+        Node* node = root;
+        for (char ch : word) {
+            if (!node->containsKey(ch)) {
+                return false;
+            }
+            node = node->get(ch);
+        }
+        return node->isEnd();
+    }
+
+    bool startsWith(string prefix) {
+        Node* node = root;
+        for (char ch : prefix) {
+            if (!node->contains
+
+
+
+
+
+##############-Java Memoization-####################
+
+class Node {
+    private Node[] links = new Node[26];
+    private boolean flag = false;
+
+    public boolean containsKey(char ch) {
+        return links[ch - 'a'] != null;
+    }
+
+    public void put(char ch, Node node) {
+        links[ch - 'a'] = node;
+    }
+
+    public Node get(char ch) {
+        return links[ch - 'a'];
+    }
+
+    public void setEnd() {
+        flag = true;
+    }
+
+    public boolean isEnd() {
+        return flag;
+    }
+}
+
+class Trie {
+    private Node root;
+
+    public Trie() {
+        root = new Node();
+    }
+
+    public void insert(String word) {
+        Node node = root;
+        for (char ch : word.toCharArray()) {
+            if (!node.containsKey(ch)) {
+                node.put(ch, new Node());
+            }
+            node = node.get(ch);
+        }
+        node.setEnd();
+    }
+
+    public boolean search(String word) {
+        Node node = root;
+        for (char ch : word.toCharArray()) {
+            if (!node.containsKey(ch)) {
+                return false;
+            }
+            node = node.get(ch);
+        }
+        return node.isEnd();
+    }
+
+    public boolean startsWith
+
+
