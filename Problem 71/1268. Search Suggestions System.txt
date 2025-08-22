@@ -1,0 +1,247 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/search-suggestions-system/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N*M+L)
+Space Complexity :- O(N*M)
+
+
+##############-PYTHON-####################
+
+   class Node:
+    def __init__(self):
+        self.links = [None] * 26
+        self.flag = False
+        self.suggestions = [] 
+
+    def containsKey(self, ch):
+        return self.links[ord(ch) - ord('a')] is not None
+
+    def put(self, ch, node):
+        self.links[ord(ch) - ord('a')] = node
+
+    def get(self, ch):
+        return self.links[ord(ch) - ord('a')]
+
+    def setEnd(self):
+        self.flag = True
+
+    def isEnd(self):
+        return self.flag
+
+
+class Trie:
+    def __init__(self):
+        self.root = Node()
+
+    def insert(self, word: str) -> None:
+        node = self.root
+        for ch in word:
+            if not node.containsKey(ch):
+                node.put(ch, Node())
+            node = node.get(ch)
+
+            if len(node.suggestions) < 3:
+                node.suggestions.append(word)
+                node.suggestions.sort()
+            else:
+                if word < node.suggestions[-1]:
+                    node.suggestions[-1] = word
+                    node.suggestions.sort()
+
+        node.setEnd()
+
+    def getSuggestions(self, prefix: str) -> List[str]:
+        node = self.root
+        for ch in prefix:
+            if not node.containsKey(ch):
+                return []
+            node = node.get(ch)
+        return node.suggestions
+
+
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        trie = Trie()
+
+        for word in sorted(products):
+            trie.insert(word)
+
+        res = []
+        prefix = ""
+        for ch in searchWord:
+            prefix += ch
+            res.append(trie.getSuggestions(prefix))
+        return res
+
+
+        
+ 
+##############-C++-####################
+
+class Node {
+public:
+    Node* links[26];
+    bool flag = false;
+    vector<string> suggestions;
+
+    Node() {
+        for (int i = 0; i < 26; i++) links[i] = nullptr;
+    }
+
+    bool containsKey(char ch) {
+        return links[ch - 'a'] != nullptr;
+    }
+
+    void put(char ch, Node* node) {
+        links[ch - 'a'] = node;
+    }
+
+    Node* get(char ch) {
+        return links[ch - 'a'];
+    }
+
+    void setEnd() { flag = true; }
+    bool isEnd() { return flag; }
+};
+
+class Trie {
+private:
+    Node* root;
+public:
+    Trie() { root = new Node(); }
+
+    void insert(string word) {
+        Node* node = root;
+        for (char ch : word) {
+            if (!node->containsKey(ch)) {
+                node->put(ch, new Node());
+            }
+            node = node->get(ch);
+
+            // maintain lexicographically smallest suggestions (max 3)
+            if (node->suggestions.size() < 3) {
+                node->suggestions.push_back(word);
+                sort(node->suggestions.begin(), node->suggestions.end());
+            } else {
+                if (word < node->suggestions.back()) {
+                    node->suggestions.back() = word;
+                    sort(node->suggestions.begin(), node->suggestions.end());
+                }
+            }
+        }
+        node->setEnd();
+    }
+
+    vector<string> getSuggestions(string prefix) {
+        Node* node = root;
+        for (char ch : prefix) {
+            if (!node->containsKey(ch)) return {};
+            node = node->get(ch);
+        }
+        return node->suggestions;
+    }
+};
+
+class Solution {
+public:
+    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+        Trie trie;
+        sort(products.begin(), products.end()); // ensures lexicographically smallest order
+        for (string word : products) {
+            trie.insert(word);
+        }
+
+        vector<vector<string>> res;
+        string prefix = "";
+        for (char ch : searchWord) {
+            prefix += ch;
+            res.push_back(trie.getSuggestions(prefix));
+        }
+        return res;
+    }
+};
+
+
+
+
+
+##############-Java-####################
+
+
+class Node {
+    Node[] links = new Node[26];
+    boolean flag = false;
+    List<String> suggestions = new ArrayList<>();
+
+    boolean containsKey(char ch) {
+        return links[ch - 'a'] != null;
+    }
+
+    void put(char ch, Node node) {
+        links[ch - 'a'] = node;
+    }
+
+    Node get(char ch) {
+        return links[ch - 'a'];
+    }
+
+    void setEnd() { flag = true; }
+    boolean isEnd() { return flag; }
+}
+
+class Trie {
+    private Node root;
+    Trie() { root = new Node(); }
+
+    void insert(String word) {
+        Node node = root;
+        for (char ch : word.toCharArray()) {
+            if (!node.containsKey(ch)) {
+                node.put(ch, new Node());
+            }
+            node = node.get(ch);
+
+            // maintain lexicographically smallest suggestions (max 3)
+            if (node.suggestions.size() < 3) {
+                node.suggestions.add(word);
+                Collections.sort(node.suggestions);
+            } else {
+                if (word.compareTo(node.suggestions.get(2)) < 0) {
+                    node.suggestions.set(2, word);
+                    Collections.sort(node.suggestions);
+                }
+            }
+        }
+        node.setEnd();
+    }
+
+    List<String> getSuggestions(String prefix) {
+        Node node = root;
+        for (char ch : prefix.toCharArray()) {
+            if (!node.containsKey(ch)) return new ArrayList<>();
+            node = node.get(ch);
+        }
+        return node.suggestions;
+    }
+}
+
+class Solution {
+    public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+        Trie trie = new Trie();
+        Arrays.sort(products); // ensures lexicographically smallest order
+        for (String word : products) {
+            trie.insert(word);
+        }
+
+        List<List<String>> res = new ArrayList<>();
+        String prefix = "";
+        for (char ch : searchWord.toCharArray()) {
+            prefix += ch;
+            res.add(trie.getSuggestions(prefix));
+        }
+        return res;
+    }
+}
+
+
+
