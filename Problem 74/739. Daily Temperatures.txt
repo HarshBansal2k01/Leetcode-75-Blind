@@ -1,0 +1,66 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/daily-temperatures/description/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N)
+Space Complexity :- O(N)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def dailyTemperatures(self, temp: List[int]) -> List[int]:
+        stack=[]
+        n=len(temp)
+        ans=[0]*n
+
+        for i in range(n):
+            while  len(stack)>0 and temp[stack[-1]]< temp[i]:
+                diff = i-stack[-1]
+                ans[stack[-1]]=diff
+                stack.pop()
+            stack.append(i)
+        
+        return ans
+        
+ 
+##############-C++-####################
+
+
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temp) {
+        int n = temp.size();
+        vector<int> ans(n, 0);
+        stack<int> st;
+
+        for (int i = 0; i < n; i++) {
+            while (!st.empty() && temp[i] > temp[st.top()]) {
+                int idx = st.top();
+                st.pop();
+                ans[idx] = i - idx;
+            }
+            st.push(i);
+        }
+        return ans;
+    }
+};
+
+
+##############-Java-####################
+
+class Solution {
+    public int[] dailyTemperatures(int[] temp) {
+        int n = temp.length;
+        int[] ans = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < n; i++) {
+            while (!stack.isEmpty() && temp[i] > temp[stack.peek()]) {
+                int idx = stack.pop();
+                ans[idx] = i - idx;
+            }
+            stack.push(i);
+        }
+        return ans;
+    }
+}
