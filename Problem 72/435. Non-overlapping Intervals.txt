@@ -1,0 +1,74 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/non-overlapping-intervals/?envType=study-plan-v2&envId=leetcode-75
+
+Time Complexity :- O(N*log*N)
+Space Complexity :- O(1)
+
+
+##############-PYTHON-####################
+
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort()  # sort by starting time
+        count = 0
+        end = intervals[0][1]
+
+        for i in range(1, len(intervals)):
+            if intervals[i][0] < end:
+                count += 1
+                end = min(end, intervals[i][1])  # keep the smaller end
+            else:
+                end = intervals[i][1]
+
+        return count
+
+        
+ 
+##############-C++-####################
+
+class Solution {
+public:
+    int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+        sort(intervals.begin(), intervals.end()); // sort by start time
+        int count = 0;
+        int end = intervals[0][1];
+
+        for (int i = 1; i < intervals.size(); i++) {
+            if (intervals[i][0] < end) {
+                count++;
+                end = min(end, intervals[i][1]); // keep smaller end
+            } else {
+                end = intervals[i][1];
+            }
+        }
+
+        return count;
+    }
+};
+
+
+
+##############-Java-####################
+
+
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0])); // sort by start time
+        int count = 0;
+        int end = intervals[0][1];
+
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] < end) {
+                count++;
+                end = Math.min(end, intervals[i][1]); // keep smaller end
+            } else {
+                end = intervals[i][1];
+            }
+        }
+
+        return count;
+    }
+}
+
+
+
