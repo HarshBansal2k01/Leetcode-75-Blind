@@ -1,0 +1,66 @@
+Link to Youtube Video :- 
+Link to Leetcode problem :- https://leetcode.com/problems/online-stock-span/description/
+
+Time Complexity :- O(N)
+Space Complexity :- O(N)
+
+
+##############-PYTHON-####################
+
+class StockSpanner:
+
+    def __init__(self):
+        self.stack = []  
+
+    def next(self, price: int) -> int:
+        span = 1
+        while self.stack and self.stack[-1][0] <= price:
+            span += self.stack[-1][1]
+            self.stack.pop()
+        self.stack.append((price, span))
+        return span
+
+        
+ 
+##############-C++-####################
+
+
+class StockSpanner {
+private:
+    stack<pair<int, int>> st; // {price, span}
+    
+public:
+    StockSpanner() {}
+    
+    int next(int price) {
+        int span = 1;
+        while (!st.empty() && st.top().first <= price) {
+            span += st.top().second;
+            st.pop();
+        }
+        st.push({price, span});
+        return span;
+    }
+};
+
+
+
+##############-Java-####################
+
+class StockSpanner {
+    private Stack<int[]> stack; // {price, span}
+
+    public StockSpanner() {
+        stack = new Stack<>();
+    }
+
+    public int next(int price) {
+        int span = 1;
+        while (!stack.isEmpty() && stack.peek()[0] <= price) {
+            span += stack.peek()[1];
+            stack.pop();
+        }
+        stack.push(new int[]{price, span});
+        return span;
+    }
+}
