@@ -1,4 +1,4 @@
-Link to Youtube Video :- 
+Link to Youtube Video :- https://www.youtube.com/watch?v=o4UMGxtXYQA
 Link to Leetcode problem :- https://leetcode.com/problems/domino-and-tromino-tiling/description/?envType=study-plan-v2&envId=leetcode-75
 
 Time Complexity :- O(N)
