@@ -1,4 +1,4 @@
-Link to Youtube Video :- 
+Link to Youtube Video :- https://www.youtube.com/watch?v=0zMcfJ8ivx0
 Link to Leetcode problem :- https://leetcode.com/problems/minimum-flips-to-make-a-or-b-equal-to-c/description/?envType=study-plan-v2&envId=leetcode-75
 
 Time Complexity :- O(Log(max(a,b,c)))
