@@ -1,4 +1,4 @@
-Link to Youtube Video :- 
+Link to Youtube Video :- https://www.youtube.com/watch?v=grj7v9QJ-Kk
 Link to Leetcode problem :- https://leetcode.com/problems/implement-trie-prefix-tree/?envType=study-plan-v2&envId=leetcode-75
 
 Time Complexity :- O(L+P) -> L = word length , P =  prefix length
