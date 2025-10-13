@@ -2,31 +2,30 @@ Link to Youtube Video :- https://www.youtube.com/watch?v=L6-ArWvvPIg
 Link to Leetcode problem :- https://leetcode.com/problems/search-suggestions-system/description/?envType=study-plan-v2&envId=leetcode-75
 
 Time Complexity :- O(N*M+L)
-Space Complexity :- O(N*M)
-
+Space Complexity :- O(N*M) 
+// N -> Number of words in products
+// M = Average length of each word
+// L = Length of searchWord
 
 ##############-PYTHON-####################
 
-   class Node:
+class Node:
     def __init__(self):
-        self.links = [None] * 26
-        self.flag = False
+        self.children = [None] * 26
+        self.is_word_end = False
         self.suggestions = [] 
 
-    def containsKey(self, ch):
-        return self.links[ord(ch) - ord('a')] is not None
+    def contains_key(self, ch):
+        return self.children[ord(ch) - ord('a')] is not None
 
-    def put(self, ch, node):
-        self.links[ord(ch) - ord('a')] = node
+    def add(self, ch, node):
+        self.children[ord(ch) - ord('a')] = node
 
     def get(self, ch):
-        return self.links[ord(ch) - ord('a')]
+        return self.children[ord(ch) - ord('a')]
 
-    def setEnd(self):
-        self.flag = True
-
-    def isEnd(self):
-        return self.flag
+    def set_end(self):
+        self.is_word_end = True
 
 
 class Trie:
@@ -34,29 +33,29 @@ class Trie:
         self.root = Node()
 
     def insert(self, word: str) -> None:
-        node = self.root
+        current_node = self.root
         for ch in word:
-            if not node.containsKey(ch):
-                node.put(ch, Node())
-            node = node.get(ch)
+            if not current_node.contains_key(ch):
+                current_node.add(ch, Node())
+            current_node = current_node.get(ch)
 
-            if len(node.suggestions) < 3:
-                node.suggestions.append(word)
-                node.suggestions.sort()
+            if len(current_node.suggestions) < 3:
+                current_node.suggestions.append(word)
+                current_node.suggestions.sort()
             else:
-                if word < node.suggestions[-1]:
-                    node.suggestions[-1] = word
-                    node.suggestions.sort()
+                if word < current_node.suggestions[-1]:
+                    current_node.suggestions[-1] = word
+                    current_node.suggestions.sort()
 
-        node.setEnd()
+        current_node.set_end()
 
     def getSuggestions(self, prefix: str) -> List[str]:
-        node = self.root
+        current_node = self.root
         for ch in prefix:
-            if not node.containsKey(ch):
+            if not current_node.contains_key(ch):
                 return []
-            node = node.get(ch)
-        return node.suggestions
+            current_node = current_node.get(ch)
+        return current_node.suggestions
 
 
 class Solution:
@@ -72,85 +71,89 @@ class Solution:
             prefix += ch
             res.append(trie.getSuggestions(prefix))
         return res
-
-
         
  
 ##############-C++-####################
 
 class Node {
 public:
-    Node* links[26];
-    bool flag = false;
+    Node* children[26];
+    bool isWordEnd;
     vector<string> suggestions;
 
     Node() {
-        for (int i = 0; i < 26; i++) links[i] = nullptr;
+        fill(begin(children), end(children), nullptr);
+        isWordEnd = false;
     }
 
     bool containsKey(char ch) {
-        return links[ch - 'a'] != nullptr;
+        return children[ch - 'a'] != nullptr;
     }
 
-    void put(char ch, Node* node) {
-        links[ch - 'a'] = node;
+    void add(char ch, Node* node) {
+        children[ch - 'a'] = node;
     }
 
     Node* get(char ch) {
-        return links[ch - 'a'];
+        return children[ch - 'a'];
     }
 
-    void setEnd() { flag = true; }
-    bool isEnd() { return flag; }
+    void setEnd() {
+        isWordEnd = true;
+    }
 };
 
 class Trie {
-private:
     Node* root;
+
 public:
-    Trie() { root = new Node(); }
+    Trie() {
+        root = new Node();
+    }
 
     void insert(string word) {
-        Node* node = root;
+        Node* current = root;
         for (char ch : word) {
-            if (!node->containsKey(ch)) {
-                node->put(ch, new Node());
+            if (!current->containsKey(ch)) {
+                current->add(ch, new Node());
             }
-            node = node->get(ch);
+            current = current->get(ch);
 
-            // maintain lexicographically smallest suggestions (max 3)
-            if (node->suggestions.size() < 3) {
-                node->suggestions.push_back(word);
-                sort(node->suggestions.begin(), node->suggestions.end());
+            if (current->suggestions.size() < 3) {
+                current->suggestions.push_back(word);
+                sort(current->suggestions.begin(), current->suggestions.end());
             } else {
-                if (word < node->suggestions.back()) {
-                    node->suggestions.back() = word;
-                    sort(node->suggestions.begin(), node->suggestions.end());
+                if (word < current->suggestions[2]) {
+                    current->suggestions[2] = word;
+                    sort(current->suggestions.begin(), current->suggestions.end());
                 }
             }
         }
-        node->setEnd();
+        current->setEnd();
     }
 
     vector<string> getSuggestions(string prefix) {
-        Node* node = root;
+        Node* current = root;
         for (char ch : prefix) {
-            if (!node->containsKey(ch)) return {};
-            node = node->get(ch);
+            if (!current->containsKey(ch)) {
+                return {};
+            }
+            current = current->get(ch);
         }
-        return node->suggestions;
+        return current->suggestions;
     }
 };
 
 class Solution {
 public:
     vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+        sort(products.begin(), products.end());
         Trie trie;
-        sort(products.begin(), products.end()); // ensures lexicographically smallest order
-        for (string word : products) {
+        
+        for (string& word : products) {
             trie.insert(word);
         }
-
+        
         vector<vector<string>> res;
         string prefix = "";
         for (char ch : searchWord) {
@@ -164,84 +167,87 @@ public:
 
 
 
-
 ##############-Java-####################
 
 
 class Node {
-    Node[] links = new Node[26];
-    boolean flag = false;
+    Node[] children = new Node[26];
+    boolean isWordEnd = false;
     List<String> suggestions = new ArrayList<>();
 
     boolean containsKey(char ch) {
-        return links[ch - 'a'] != null;
+        return children[ch - 'a'] != null;
     }
 
-    void put(char ch, Node node) {
-        links[ch - 'a'] = node;
+    void add(char ch, Node node) {
+        children[ch - 'a'] = node;
     }
 
     Node get(char ch) {
-        return links[ch - 'a'];
+        return children[ch - 'a'];
     }
 
-    void setEnd() { flag = true; }
-    boolean isEnd() { return flag; }
+    void setEnd() {
+        isWordEnd = true;
+    }
 }
 
 class Trie {
     private Node root;
-    Trie() { root = new Node(); }
 
-    void insert(String word) {
-        Node node = root;
+    public Trie() {
+        root = new Node();
+    }
+
+    public void insert(String word) {
+        Node current = root;
         for (char ch : word.toCharArray()) {
-            if (!node.containsKey(ch)) {
-                node.put(ch, new Node());
+            if (!current.containsKey(ch)) {
+                current.add(ch, new Node());
             }
-            node = node.get(ch);
+            current = current.get(ch);
 
-            // maintain lexicographically smallest suggestions (max 3)
-            if (node.suggestions.size() < 3) {
-                node.suggestions.add(word);
-                Collections.sort(node.suggestions);
+            if (current.suggestions.size() < 3) {
+                current.suggestions.add(word);
+                Collections.sort(current.suggestions);
             } else {
-                if (word.compareTo(node.suggestions.get(2)) < 0) {
-                    node.suggestions.set(2, word);
-                    Collections.sort(node.suggestions);
+                if (word.compareTo(current.suggestions.get(2)) < 0) {
+                    current.suggestions.set(2, word);
+                    Collections.sort(current.suggestions);
                 }
             }
         }
-        node.setEnd();
+        current.setEnd();
     }
 
-    List<String> getSuggestions(String prefix) {
-        Node node = root;
+    public List<String> getSuggestions(String prefix) {
+        Node current = root;
         for (char ch : prefix.toCharArray()) {
-            if (!node.containsKey(ch)) return new ArrayList<>();
-            node = node.get(ch);
+            if (!current.containsKey(ch)) {
+                return new ArrayList<>();
+            }
+            current = current.get(ch);
         }
-        return node.suggestions;
+        return current.suggestions;
     }
 }
 
 class Solution {
     public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+        Arrays.sort(products);
         Trie trie = new Trie();
-        Arrays.sort(products); // ensures lexicographically smallest order
+
         for (String word : products) {
             trie.insert(word);
         }
 
         List<List<String>> res = new ArrayList<>();
-        String prefix = "";
+        StringBuilder prefix = new StringBuilder();
+
         for (char ch : searchWord.toCharArray()) {
-            prefix += ch;
-            res.add(trie.getSuggestions(prefix));
+            prefix.append(ch);
+            res.add(trie.getSuggestions(prefix.toString()));
         }
         return res;
     }
 }
-
-
-
