@@ -10,29 +10,29 @@ Space Complexity :- O(1)
 class Solution:
     def findMinArrowShots(self, points: List[List[int]]) -> int:
         n = len(points)
-        if n == 0:
+        if n==0:
             return 0
         
+
         points.sort()
         prev = points[0]
-        cnt = 1
-        
-        for i in range(1, n):
-            current_start = points[i][0]
-            current_end = points[i][1]
+        arrows = 1
+
+        for i in range(1,n):
+            curr_start = points[i][0]
+            curr_end = points[i][1]
             prev_start = prev[0]
             prev_end = prev[1]
-            
-            if current_start > prev_end:
-                cnt += 1
+
+            if curr_start > prev_end:
+                arrows+=1
                 prev = points[i]
             else:
-                prev[0] = max(current_start, prev_start)
-                prev[1] = min(
-                    current_end, prev_end)
+                prev[0] = max(curr_start,prev_start)
+                prev[1] = min(curr_end,prev_end)
         
-        return cnt
-        
+        return arrows
+
  
 ##############-C++-####################
 
@@ -44,26 +44,26 @@ public:
 
         sort(points.begin(), points.end());
         vector<int> prev = points[0];
-        int cnt = 1;
+        int arrows = 1;
 
         for (int i = 1; i < n; i++) {
-            int current_start = points[i][0];
-            int current_end = points[i][1];
+            int curr_start = points[i][0];
+            int curr_end = points[i][1];
             int prev_start = prev[0];
             int prev_end = prev[1];
 
-            if (current_start > prev_end) {
-                cnt++;
+            if (curr_start > prev_end) {
+                arrows++;
                 prev = points[i];
             } else {
-                prev[0] = max(current_start, prev_start);
-                prev[1] = min(current_end, prev_end);
+                prev[0] = max(curr_start, prev_start);
+                prev[1] = min(curr_end, prev_end);
             }
         }
-        return cnt;
+
+        return arrows;
     }
 };
-
 
 
 
@@ -74,25 +74,29 @@ class Solution {
         int n = points.length;
         if (n == 0) return 0;
 
-        Arrays.sort(points, (a, b) -> Integer.compare(a[0], b[0]));
+        Arrays.sort(points, (a, b) -> {
+            if (a[0] == b[0]) return Integer.compare(a[1], b[1]);
+            return Integer.compare(a[0], b[0]);
+        });
+
         int[] prev = points[0];
-        int cnt = 1;
+        int arrows = 1;
 
         for (int i = 1; i < n; i++) {
-            int current_start = points[i][0];
-            int current_end = points[i][1];
-            int prev_start = prev[0];
-            int prev_end = prev[1];
+            int currStart = points[i][0];
+            int currEnd = points[i][1];
+            int prevStart = prev[0];
+            int prevEnd = prev[1];
 
-            if (current_start > prev_end) {
-                cnt++;
+            if (currStart > prevEnd) {
+                arrows++;
                 prev = points[i];
             } else {
-                prev[0] = Math.max(current_start, prev_start);
-                prev[1] = Math.min(current_end, prev_end);
+                prev[0] = Math.max(currStart, prevStart);
+                prev[1] = Math.min(currEnd, prevEnd);
             }
         }
-        return cnt;
+
+        return arrows;
     }
 }
-
