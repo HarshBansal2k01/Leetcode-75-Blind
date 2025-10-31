@@ -1,5 +1,5 @@
-Link to Youtube Video :- 
-Link to Leetcode problem :- https://leetcode.com/problems/online-stock-span/description/
+Link to Youtube Video :- https://www.youtube.com/watch?v=mx9nAjpLtxU
+Link to Leetcode problem :- https://leetcode.com/problems/online-stock-span?envType=study-plan-v2&envId=leetcode-75
 
 Time Complexity :- O(N)
 Space Complexity :- O(N)
